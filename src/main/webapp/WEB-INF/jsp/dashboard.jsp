@@ -59,12 +59,8 @@
             </ul>
         </div>
         <div class="col-9 ms-sm-auto overflow-auto">
-            <div class="table-responsive">
-                <table class="table">
                     <core:forEach items="${staff}" var="staffProfile">
-
-                        <tr data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <div class="row">
+                            <div class="row border-bottom" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 <div class="col-11">
                                     <p>${staffProfile.lastName.toUpperCase()} ${staffProfile.firstName} ${staffProfile.middleName}</p>
                                     <p>${staffProfile.serviceInfo.department.name}, ${staffProfile.serviceInfo.position.title}</p>
@@ -77,7 +73,6 @@
                                     </button>
                                 </div>
                             </div>
-                        </tr>
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                              aria-hidden="true">
                             <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -102,8 +97,7 @@
                             </div>
                         </div>
                     </core:forEach>
-                </table>
-            </div>
+
         </div>
     </div>
 
