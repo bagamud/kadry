@@ -8,14 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import peter.ic.kadry.entity.PersonalDocuments;
-import peter.ic.kadry.entity.ServiceInfo;
 import peter.ic.kadry.entity.Staff;
 import peter.ic.kadry.entity.Users;
 import peter.ic.kadry.repository.*;
 
 @Controller
-@RequestMapping("/staff")
+@RequestMapping("/staff/personal")
 public class StaffController {
     final StaffRepository staffRepository;
     final CitizenshipRepository citizenshipRepository;
@@ -62,7 +60,7 @@ public class StaffController {
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
 
-        return "staff";
+        return "staff.personal";
     }
 
     @GetMapping("/get")
@@ -73,7 +71,7 @@ public class StaffController {
 
         model.addAttribute("staffProfile", staffRepository.findBySNILS(snils));
 
-        return "staff";
+        return "staff.personal";
     }
 
     @PostMapping("/add")
@@ -83,6 +81,6 @@ public class StaffController {
 
         model.addAttribute("user", user);
         model.addAttribute("staffProfile", staffRepository.save(staff));
-        return "staff";
+        return "staff.personal";
     }
 }

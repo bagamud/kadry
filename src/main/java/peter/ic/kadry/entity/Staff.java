@@ -1,7 +1,6 @@
 package peter.ic.kadry.entity;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
 
 @Entity

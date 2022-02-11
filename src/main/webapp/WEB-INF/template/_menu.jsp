@@ -15,7 +15,7 @@
             <a class="nav-link px-2 text-white" href="${pageContext.request.contextPath}/dashboard">Подразделения и сотрудники</a>
         </li>
         <li>
-            <a class="nav-link px-2 text-white" href="${pageContext.request.contextPath}/staff">Профиль</a>
+            <a class="nav-link px-2 text-white" href="${pageContext.request.contextPath}/staff/personal">Профиль</a>
         </li>
         <li>
             <a class="nav-link px-2 text-white" href="${pageContext.request.contextPath}/reports">Отчеты</a>

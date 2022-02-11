@@ -9,11 +9,9 @@ public class Position {
 
     @Id
     int code;
-
-    private int parentCode;
-
     @Column(columnDefinition = "VARCHAR")
     String title;
+    private int parentCode;
 
     public int getCode() {
         return code;

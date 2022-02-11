@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import peter.ic.kadry.entity.PersonalDocuments;
 import peter.ic.kadry.entity.ServiceInfo;
-import peter.ic.kadry.entity.Staff;
 import peter.ic.kadry.entity.Users;
 import peter.ic.kadry.repository.*;
 

@@ -38,7 +38,6 @@ public class DashboardController {
         }
 
 
-
         staffRepository.findAll();
         return "dashboard";
     }

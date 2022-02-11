@@ -13,7 +13,26 @@
     </div>
     <div class="row m-auto col-10">
         <div class="card m-auto d-flex flex-column m-3 p-3">
-            <jsp:include page="../template/_staff.menu.jsp"/>
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a id="personalLink" class="nav-link" aria-current="page"
+                       href="${pageContext.request.contextPath}/staff/personal">Personal
+                        info</a>
+                </li>
+                <li class="nav-item">
+                    <a id="serviceLink" class="nav-link staff active" href="${pageContext.request.contextPath}/staff/service">Service
+                        Info</a>
+                </li>
+                <li class="nav-item">
+                    <a id="documentsLink" class="nav-link" href="${pageContext.request.contextPath}/staff/documents">Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a id="educationLink" class="nav-link" href="${pageContext.request.contextPath}/staff/education">Education</a>
+                </li>
+                <li class="nav-item">
+                    <a id="militaryLink" class="nav-link" href="${pageContext.request.contextPath}/staff/military">Military</a>
+                </li>
+            </ul>
             </ul>
             <div class="card"><form class="needs-validation" action="${pageContext.request.contextPath}/staff" method="post" name="form"
                   id="formId">
