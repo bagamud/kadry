@@ -76,7 +76,7 @@ public class ServiceInfoController {
         return "staff.service";
     }
 
-    @GetMapping("/add")
+    @PostMapping("/add")
     public String addCard(ServiceInfo serviceInfo, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());

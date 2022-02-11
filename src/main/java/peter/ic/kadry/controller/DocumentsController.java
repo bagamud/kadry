@@ -58,7 +58,7 @@ public class DocumentsController {
 
 
 
-    @GetMapping("/documents")
+    @GetMapping("")
     public String card(Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
@@ -68,7 +68,7 @@ public class DocumentsController {
     }
 
 
-    @GetMapping("/documents/get")
+    @GetMapping("/get")
     public String getCard(@RequestParam(defaultValue = "0") String snils, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
@@ -79,7 +79,7 @@ public class DocumentsController {
         return "staff.documents";
     }
 
-    @GetMapping("/documents/get")
+    @PostMapping("add")
     public String addCard(PersonalDocuments personalDocuments, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());

@@ -12,7 +12,7 @@ import peter.ic.kadry.entity.*;
 import peter.ic.kadry.repository.*;
 
 @Controller
-@RequestMapping("/staff")
+@RequestMapping("/staff/military")
 public class MilitaryInfController {
     final StaffRepository staffRepository;
     final CitizenshipRepository citizenshipRepository;

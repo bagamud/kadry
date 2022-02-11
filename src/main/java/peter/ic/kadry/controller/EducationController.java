@@ -73,7 +73,7 @@ public class EducationController {
         return "staff.education";
     }
 
-    @GetMapping("/get")
+    @PostMapping("/add")
     public String addCard(EducationInformation educationInformation, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
