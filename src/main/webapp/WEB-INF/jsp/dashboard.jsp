@@ -63,20 +63,20 @@
                 <table class="table">
                     <core:forEach items="${staff}" var="staffProfile">
 
-                        <tr <%--onclick="location.href='${pageContext.request.contextPath}/staff/get?snils=${staffProfile.SNILS}'"--%>>
-                            <td>
-                                <p>${staffProfile.lastName.toUpperCase()} ${staffProfile.firstName} ${staffProfile.middleName}</p>
-                                <p>${staffProfile.serviceInfo.department.name}, ${staffProfile.serviceInfo.position.title}</p>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">Info
-                                </button>
+                        <tr data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <div class="row">
+                                <div class="col-11">
+                                    <p>${staffProfile.lastName.toUpperCase()} ${staffProfile.firstName} ${staffProfile.middleName}</p>
+                                    <p>${staffProfile.serviceInfo.department.name}, ${staffProfile.serviceInfo.position.title}</p>
+                                </div>
+                                <div class="col-1">
+
                                 <button type="button" class="btn btn-primary"
-                                        onclick="location.href='${pageContext.request.contextPath}/staff/get?snils=${staffProfile.SNILS}'">
-                                    Edit
-                                </button>
-                            </td>
+                                            onclick="location.href='${pageContext.request.contextPath}/staff/personal/get?snils=${staffProfile.SNILS}'">
+                                        Edit
+                                    </button>
+                                </div>
+                            </div>
                         </tr>
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                              aria-hidden="true">
