@@ -8,15 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import peter.ic.kadry.entity.PersonalDocuments;
-import peter.ic.kadry.entity.ServiceInfo;
-import peter.ic.kadry.entity.Staff;
-import peter.ic.kadry.entity.Users;
+import peter.ic.kadry.entity.*;
 import peter.ic.kadry.repository.*;
 
 @Controller
 @RequestMapping("/staff")
-public class StaffController {
+public class MilitaryInfController {
     final StaffRepository staffRepository;
     final CitizenshipRepository citizenshipRepository;
     final DocTypeRepository docTypeRepository;
@@ -30,18 +27,18 @@ public class StaffController {
     final DepartmentRepository departmentRepository;
     final UsersRepository usersRepository;
 
-    public StaffController(StaffRepository staffRepository,
-                           CitizenshipRepository citizenshipRepository,
-                           DocTypeRepository docTypeRepository,
-                           EducationInfRepository educationInfRepository,
-                           MilitaryServiceRepository militaryServiceRepository,
-                           PersonalDocumentsRepository personalDocumentsRepository,
-                           PositionRepository positionRepository,
-                           RankRepository rankRepository,
-                           ServiceInfoRepository serviceInfoRepository,
-                           StaffIDCardRepository staffIDCardRepository,
-                           DepartmentRepository departmentRepository,
-                           UsersRepository usersRepository) {
+    public MilitaryInfController(StaffRepository staffRepository,
+                                 CitizenshipRepository citizenshipRepository,
+                                 DocTypeRepository docTypeRepository,
+                                 EducationInfRepository educationInfRepository,
+                                 MilitaryServiceRepository militaryServiceRepository,
+                                 PersonalDocumentsRepository personalDocumentsRepository,
+                                 PositionRepository positionRepository,
+                                 RankRepository rankRepository,
+                                 ServiceInfoRepository serviceInfoRepository,
+                                 StaffIDCardRepository staffIDCardRepository,
+                                 DepartmentRepository departmentRepository,
+                                 UsersRepository usersRepository) {
         this.staffRepository = staffRepository;
         this.citizenshipRepository = citizenshipRepository;
         this.docTypeRepository = docTypeRepository;
@@ -62,7 +59,7 @@ public class StaffController {
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
 
-        return "staff";
+        return "staff.military";
     }
 
     @GetMapping("/get")
@@ -71,18 +68,20 @@ public class StaffController {
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
 
-        model.addAttribute("staffProfile", staffRepository.findBySNILS(snils));
+        model.addAttribute("militariServiceCard", militaryServiceRepository.findByStaff_SNILS(snils));
 
-        return "staff";
+        return "staff.military";
     }
 
     @PostMapping("/add")
-    public String addCard(Staff staff, Model model) {
+    public String addCard(MilitaryService militaryService, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
 
         model.addAttribute("user", user);
-        model.addAttribute("staffProfile", staffRepository.save(staff));
-        return "staff";
+        model.addAttribute("militariServiceCard", militaryServiceRepository.save(militaryService));
+        return "staff.military";
     }
+
+
 }

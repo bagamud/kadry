@@ -15,8 +15,8 @@ import peter.ic.kadry.entity.Users;
 import peter.ic.kadry.repository.*;
 
 @Controller
-@RequestMapping("/staff")
-public class StaffController {
+@RequestMapping("/staff/documents")
+public class DocumentsController {
     final StaffRepository staffRepository;
     final CitizenshipRepository citizenshipRepository;
     final DocTypeRepository docTypeRepository;
@@ -30,18 +30,18 @@ public class StaffController {
     final DepartmentRepository departmentRepository;
     final UsersRepository usersRepository;
 
-    public StaffController(StaffRepository staffRepository,
-                           CitizenshipRepository citizenshipRepository,
-                           DocTypeRepository docTypeRepository,
-                           EducationInfRepository educationInfRepository,
-                           MilitaryServiceRepository militaryServiceRepository,
-                           PersonalDocumentsRepository personalDocumentsRepository,
-                           PositionRepository positionRepository,
-                           RankRepository rankRepository,
-                           ServiceInfoRepository serviceInfoRepository,
-                           StaffIDCardRepository staffIDCardRepository,
-                           DepartmentRepository departmentRepository,
-                           UsersRepository usersRepository) {
+    public DocumentsController(StaffRepository staffRepository,
+                               CitizenshipRepository citizenshipRepository,
+                               DocTypeRepository docTypeRepository,
+                               EducationInfRepository educationInfRepository,
+                               MilitaryServiceRepository militaryServiceRepository,
+                               PersonalDocumentsRepository personalDocumentsRepository,
+                               PositionRepository positionRepository,
+                               RankRepository rankRepository,
+                               ServiceInfoRepository serviceInfoRepository,
+                               StaffIDCardRepository staffIDCardRepository,
+                               DepartmentRepository departmentRepository,
+                               UsersRepository usersRepository) {
         this.staffRepository = staffRepository;
         this.citizenshipRepository = citizenshipRepository;
         this.docTypeRepository = docTypeRepository;
@@ -56,33 +56,38 @@ public class StaffController {
         this.usersRepository = usersRepository;
     }
 
-    @GetMapping("")
+
+
+    @GetMapping("/documents")
     public String card(Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
 
-        return "staff";
+        return "staff.documents";
     }
 
-    @GetMapping("/get")
+
+    @GetMapping("/documents/get")
     public String getCard(@RequestParam(defaultValue = "0") String snils, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
 
-        model.addAttribute("staffProfile", staffRepository.findBySNILS(snils));
+        model.addAttribute("documentsCard", personalDocumentsRepository.findByStaff_SNILS(snils));
 
-        return "staff";
+        return "staff.documents";
     }
 
-    @PostMapping("/add")
-    public String addCard(Staff staff, Model model) {
+    @GetMapping("/documents/get")
+    public String addCard(PersonalDocuments personalDocuments, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
-
         model.addAttribute("user", user);
-        model.addAttribute("staffProfile", staffRepository.save(staff));
-        return "staff";
+
+        model.addAttribute("documentsCard", personalDocumentsRepository.save(personalDocuments));
+
+        return "staff.documents";
     }
+
 }

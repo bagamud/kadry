@@ -15,8 +15,8 @@ import peter.ic.kadry.entity.Users;
 import peter.ic.kadry.repository.*;
 
 @Controller
-@RequestMapping("/staff")
-public class StaffController {
+@RequestMapping("/staff/service")
+public class ServiceInfoController {
     final StaffRepository staffRepository;
     final CitizenshipRepository citizenshipRepository;
     final DocTypeRepository docTypeRepository;
@@ -30,18 +30,18 @@ public class StaffController {
     final DepartmentRepository departmentRepository;
     final UsersRepository usersRepository;
 
-    public StaffController(StaffRepository staffRepository,
-                           CitizenshipRepository citizenshipRepository,
-                           DocTypeRepository docTypeRepository,
-                           EducationInfRepository educationInfRepository,
-                           MilitaryServiceRepository militaryServiceRepository,
-                           PersonalDocumentsRepository personalDocumentsRepository,
-                           PositionRepository positionRepository,
-                           RankRepository rankRepository,
-                           ServiceInfoRepository serviceInfoRepository,
-                           StaffIDCardRepository staffIDCardRepository,
-                           DepartmentRepository departmentRepository,
-                           UsersRepository usersRepository) {
+    public ServiceInfoController(StaffRepository staffRepository,
+                                 CitizenshipRepository citizenshipRepository,
+                                 DocTypeRepository docTypeRepository,
+                                 EducationInfRepository educationInfRepository,
+                                 MilitaryServiceRepository militaryServiceRepository,
+                                 PersonalDocumentsRepository personalDocumentsRepository,
+                                 PositionRepository positionRepository,
+                                 RankRepository rankRepository,
+                                 ServiceInfoRepository serviceInfoRepository,
+                                 StaffIDCardRepository staffIDCardRepository,
+                                 DepartmentRepository departmentRepository,
+                                 UsersRepository usersRepository) {
         this.staffRepository = staffRepository;
         this.citizenshipRepository = citizenshipRepository;
         this.docTypeRepository = docTypeRepository;
@@ -62,7 +62,7 @@ public class StaffController {
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
 
-        return "staff";
+        return "staff.service";
     }
 
     @GetMapping("/get")
@@ -71,18 +71,20 @@ public class StaffController {
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
 
-        model.addAttribute("staffProfile", staffRepository.findBySNILS(snils));
+        model.addAttribute("serviceCard", serviceInfoRepository.findByStaff_SNILS(snils));
 
-        return "staff";
+        return "staff.service";
     }
 
-    @PostMapping("/add")
-    public String addCard(Staff staff, Model model) {
+    @GetMapping("/add")
+    public String addCard(ServiceInfo serviceInfo, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
-
         model.addAttribute("user", user);
-        model.addAttribute("staffProfile", staffRepository.save(staff));
-        return "staff";
+
+        model.addAttribute("serviceCard", serviceInfoRepository.save(serviceInfo));
+
+        return "staff.service";
     }
+
 }
