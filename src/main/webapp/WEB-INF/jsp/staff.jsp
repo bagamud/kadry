@@ -13,20 +13,7 @@
     </div>
     <div class="row m-auto col-10">
         <div class="card m-auto d-flex flex-column m-3 p-3">
-            <ul class="nav nav-pills">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/staff">Personal info</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/staff/service">Service Info</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/staff/documents">Documents</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="${pageContext.request.contextPath}/staff/education">Education</a>
-                </li>
-            </ul>
+            <jsp:include page="../template/_staff.menu.jsp"/>
             </ul>
             <div class="card"><form class="needs-validation" action="${pageContext.request.contextPath}/staff" method="post" name="form"
                   id="formId">
