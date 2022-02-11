@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface StaffRepository extends CrudRepository<Staff, Integer> {
 
-//    List<Staff> findAllByDepartment_code(int department_code);
+    Staff findBySNILS(String snils);
+    List<Staff> findAllByServiceInfo_Department_code(int department_code);
 }

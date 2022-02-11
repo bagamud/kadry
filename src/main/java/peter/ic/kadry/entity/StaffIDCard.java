@@ -1,5 +1,6 @@
 package peter.ic.kadry.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
@@ -9,8 +10,13 @@ public class StaffIDCard {
 
     @Id
     private int id;
+
+    @Column(columnDefinition = "VARCHAR")
     private String serialCode;
+
+    @Column(columnDefinition = "VARCHAR")
     private String number;
+
     private Date initDate;
     private Date endDate;
 
