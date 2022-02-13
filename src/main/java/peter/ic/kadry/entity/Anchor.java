@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class DocumentType {
+public class Anchor {
 
     @Id
     private int id;

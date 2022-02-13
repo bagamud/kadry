@@ -5,13 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Citizenship {
+public class Status {
 
     @Id
     private int id;
 
     @Column(columnDefinition = "VARCHAR")
     private String title;
+
+    private boolean isServing;
 
     public int getId() {
         return id;
@@ -27,5 +29,13 @@ public class Citizenship {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public boolean isServing() {
+        return isServing;
+    }
+
+    public void setServing(boolean serving) {
+        isServing = serving;
     }
 }

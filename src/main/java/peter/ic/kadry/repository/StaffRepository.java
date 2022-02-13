@@ -9,5 +9,7 @@ public interface StaffRepository extends CrudRepository<Staff, Integer> {
 
     Staff findBySNILS(String snils);
 
-    List<Staff> findAllByServiceInfo_Department_code(int department_code);
+    List<Staff> findAllByDepartment_code(int department_code);
+
+    List<Staff> findAllByLastNameLikeIgnoreCaseAndFirstNameLikeIgnoreCaseAndMiddleNameLikeIgnoreCase(String lastName, String firstName, String middleName);
 }

@@ -14,6 +14,7 @@ public class EducationInformation {
     @ManyToOne
     private Staff staff;
 
+    @ManyToOne
     private EducationType educationType;
 
     @Column(columnDefinition = "VARCHAR")

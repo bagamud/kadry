@@ -23,7 +23,6 @@ public class MilitaryInfController {
     final PersonalDocumentsRepository personalDocumentsRepository;
     final PositionRepository positionRepository;
     final RankRepository rankRepository;
-    final ServiceInfoRepository serviceInfoRepository;
     final StaffIDCardRepository staffIDCardRepository;
     final DepartmentRepository departmentRepository;
     final UsersRepository usersRepository;
@@ -36,7 +35,6 @@ public class MilitaryInfController {
                                  PersonalDocumentsRepository personalDocumentsRepository,
                                  PositionRepository positionRepository,
                                  RankRepository rankRepository,
-                                 ServiceInfoRepository serviceInfoRepository,
                                  StaffIDCardRepository staffIDCardRepository,
                                  DepartmentRepository departmentRepository,
                                  UsersRepository usersRepository) {
@@ -48,7 +46,6 @@ public class MilitaryInfController {
         this.personalDocumentsRepository = personalDocumentsRepository;
         this.positionRepository = positionRepository;
         this.rankRepository = rankRepository;
-        this.serviceInfoRepository = serviceInfoRepository;
         this.staffIDCardRepository = staffIDCardRepository;
         this.departmentRepository = departmentRepository;
         this.usersRepository = usersRepository;

@@ -7,10 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import peter.ic.kadry.entity.Department;
 import peter.ic.kadry.entity.Users;
 import peter.ic.kadry.repository.DepartmentRepository;
 import peter.ic.kadry.repository.StaffRepository;
 import peter.ic.kadry.repository.UsersRepository;
+
+import java.util.*;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -33,12 +36,59 @@ public class DashboardController {
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
 
-        if (department != 0) {
-            model.addAttribute("staff", staffRepository.findAllByServiceInfo_Department_code(department));
+        model.addAttribute("departments", departmentRepository.findAllByOrderByCode());
+        model.addAttribute("rootDep", departmentRepository.findAllByAnchor_NameOrderByCode("root"));
+
+        Map<Department, List<Department>> depMenu = new HashMap<>();
+
+        for (Department dep : departmentRepository.findAll()) {
+            ArrayList<Department> menuList = departmentRepository.findAllByParentCodeOrderByCode(dep.getCode());
+            if (!menuList.isEmpty()) {
+                depMenu.put(dep, menuList);
+            }
         }
 
+        model.addAttribute("depMenu", depMenu);
+        if (department != 0) {
+            model.addAttribute("staff", staffRepository.findAllByDepartment_code(department));
+        }
+        if (user.getDepartment().getCode() != department) {
+            model.addAttribute("hidden", "hidden");
+        }
 
-        staffRepository.findAll();
+        return "dashboard";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(defaultValue = "") String searchRequest, Model model) {
+        User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Users user = usersRepository.findByUsername(userAuth.getUsername());
+        model.addAttribute("user", user);
+
+        model.addAttribute("departments", departmentRepository.findAllByOrderByCode());
+        model.addAttribute("rootDep", departmentRepository.findAllByAnchor_NameOrderByCode("root"));
+
+        Map<Department, List<Department>> depMenu = new HashMap<>();
+
+        for (Department dep : departmentRepository.findAll()) {
+            ArrayList<Department> menuList = departmentRepository.findAllByParentCodeOrderByCode(dep.getCode());
+
+            if (!menuList.isEmpty()) {
+                depMenu.put(dep, menuList);
+            }
+        }
+        model.addAttribute("depMenu", depMenu);
+
+        if (!searchRequest.equals("")) {
+            String[] fio = searchRequest.split(" ");
+
+            String[] search = new String[]{"%", "%", "%"};
+            System.arraycopy(fio, 0, search, 0, fio.length);
+            fio = search;
+
+            model.addAttribute("staff",
+                    staffRepository.findAllByLastNameLikeIgnoreCaseAndFirstNameLikeIgnoreCaseAndMiddleNameLikeIgnoreCase(fio[0], fio[1], fio[2]));
+        }
         return "dashboard";
     }
 }

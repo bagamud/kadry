@@ -3,6 +3,7 @@ package peter.ic.kadry.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Department {
@@ -19,6 +20,9 @@ public class Department {
 
     @Column(columnDefinition = "VARCHAR")
     String shortName;
+
+    @ManyToOne
+    private Anchor anchor;
 
     int regionCode;
 
@@ -68,5 +72,13 @@ public class Department {
 
     public void setRegionCode(int regionCode) {
         this.regionCode = regionCode;
+    }
+
+    public Anchor getAnchor() {
+        return anchor;
+    }
+
+    public void setAnchor(Anchor anchor) {
+        this.anchor = anchor;
     }
 }

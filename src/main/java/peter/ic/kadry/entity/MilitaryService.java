@@ -1,9 +1,6 @@
 package peter.ic.kadry.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -12,7 +9,7 @@ public class MilitaryService {
     @Id
     private int id;
 
-    @OneToOne
+    @ManyToOne
     private Staff staff;
 
     private boolean serveInArmy;

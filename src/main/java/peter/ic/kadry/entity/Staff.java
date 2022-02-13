@@ -1,14 +1,15 @@
 package peter.ic.kadry.entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
 public class Staff {
 
+    @Id
     private int card_id;
 
-    @Id
     @Column(unique = true, columnDefinition = "VARCHAR(11)")
     private String SNILS;
 
@@ -23,6 +24,7 @@ public class Staff {
 
     private Date dateOfBirth;
 
+    @ManyToOne
     private Gender gender;
 
     @Column(columnDefinition = "VARCHAR")
@@ -43,18 +45,43 @@ public class Staff {
     @Column(columnDefinition = "VARCHAR")
     private String email;
 
-//    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-//    private Collection<PersonalDocuments> personalDocuments;
-//
-//    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-//    private Collection<EducationInformation> educationInformation;
+    @Column(unique = true, columnDefinition = "VARCHAR")
+    private String username;
 
-    @OneToOne
-    private ServiceInfo serviceInfo;
+    @Column(columnDefinition = "VARCHAR")
+    private String personalNumberLetter;
 
-    @OneToOne
-    private MilitaryService militaryService;
+    @Column(columnDefinition = "VARCHAR")
+    private String personalNumberDigits;
 
+    @Column(columnDefinition = "VARCHAR")
+    private String personalNumberOrder;
+
+    private Date personalNumberOrderDate;
+
+    private Date serviceStartDate;
+
+    @ManyToOne(targetEntity = Department.class)
+    private Department department;
+
+    @ManyToOne(targetEntity = Position.class)
+    private Position position;
+
+    @Column(columnDefinition = "VARCHAR")
+    private String positionAppointmentOrder;
+
+    @ManyToOne(optional = true, targetEntity = Rank.class)
+    private Rank rank;
+
+    private Date rankAssigmentDate;
+
+    @ManyToOne
+    private Status status;
+
+    private Date dismissalDate;
+
+    @Column(columnDefinition = "VARCHAR")
+    private String dismissalOrder;
 
     public int getCard_id() {
         return card_id;
@@ -160,35 +187,115 @@ public class Staff {
         this.email = email;
     }
 
-//    public Collection<PersonalDocuments> getPersonalDocuments() {
-//        return personalDocuments;
-//    }
-//
-//    public void setPersonalDocuments(Collection<PersonalDocuments> personalDocuments) {
-//        this.personalDocuments = personalDocuments;
-//    }
-//
-//    public Collection<EducationInformation> getEducationInformation() {
-//        return educationInformation;
-//    }
-//
-//    public void setEducationInformation(Collection<EducationInformation> educationInformation) {
-//        this.educationInformation = educationInformation;
-//    }
-
-    public ServiceInfo getServiceInfo() {
-        return serviceInfo;
+    public String getUsername() {
+        return username;
     }
 
-    public void setServiceInfo(ServiceInfo serviceInfo) {
-        this.serviceInfo = serviceInfo;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public MilitaryService getMilitaryService() {
-        return militaryService;
+    public String getPersonalNumberLetter() {
+        return personalNumberLetter;
     }
 
-    public void setMilitaryService(MilitaryService militaryService) {
-        this.militaryService = militaryService;
+    public void setPersonalNumberLetter(String personalNumberLetter) {
+        this.personalNumberLetter = personalNumberLetter;
+    }
+
+    public String getPersonalNumberDigits() {
+        return personalNumberDigits;
+    }
+
+    public void setPersonalNumberDigits(String personalNumberDigits) {
+        this.personalNumberDigits = personalNumberDigits;
+    }
+
+    public String getPersonalNumberOrder() {
+        return personalNumberOrder;
+    }
+
+    public void setPersonalNumberOrder(String personalNumberOrder) {
+        this.personalNumberOrder = personalNumberOrder;
+    }
+
+    public Date getPersonalNumberOrderDate() {
+        return personalNumberOrderDate;
+    }
+
+    public void setPersonalNumberOrderDate(Date personalNumberOrderDate) {
+        this.personalNumberOrderDate = personalNumberOrderDate;
+    }
+
+    public Date getServiceStartDate() {
+        return serviceStartDate;
+    }
+
+    public void setServiceStartDate(Date serviceStartDate) {
+        this.serviceStartDate = serviceStartDate;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public String getPositionAppointmentOrder() {
+        return positionAppointmentOrder;
+    }
+
+    public void setPositionAppointmentOrder(String positionAppointmentOrder) {
+        this.positionAppointmentOrder = positionAppointmentOrder;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
+    }
+
+    public Date getRankAssigmentDate() {
+        return rankAssigmentDate;
+    }
+
+    public void setRankAssigmentDate(Date rankAssigmentDate) {
+        this.rankAssigmentDate = rankAssigmentDate;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Date getDismissalDate() {
+        return dismissalDate;
+    }
+
+    public void setDismissalDate(Date dismissalDate) {
+        this.dismissalDate = dismissalDate;
+    }
+
+    public String getDismissalOrder() {
+        return dismissalOrder;
+    }
+
+    public void setDismissalOrder(String dismissalOrder) {
+        this.dismissalOrder = dismissalOrder;
     }
 }

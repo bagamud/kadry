@@ -8,10 +8,12 @@ import javax.persistence.Id;
 public class Rank {
 
     @Id
-    int id;
+    private int id;
 
     @Column(columnDefinition = "VARCHAR")
-    String title;
+    private String title;
+
+    private int tariff;
 
     public int getId() {
         return id;
@@ -27,5 +29,13 @@ public class Rank {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getTariff() {
+        return tariff;
+    }
+
+    public void setTariff(int tariff) {
+        this.tariff = tariff;
     }
 }

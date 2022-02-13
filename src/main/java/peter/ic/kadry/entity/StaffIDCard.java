@@ -3,6 +3,7 @@ package peter.ic.kadry.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Entity
@@ -10,6 +11,9 @@ public class StaffIDCard {
 
     @Id
     private int id;
+
+    @ManyToOne
+    private Staff staff;
 
     @Column(columnDefinition = "VARCHAR")
     private String serialCode;
@@ -58,5 +62,13 @@ public class StaffIDCard {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 }

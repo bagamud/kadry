@@ -3,6 +3,7 @@
 <html>
 <head>
     <jsp:include page="../template/_metaStyle.jsp"/>
+    <link href="${pageContext.request.contextPath}/css/sidebars.css" rel="stylesheet">
     <title>Учет кадров</title>
 </head>
 <body class="" style="background-color: rgba(205,219,245,0.39)">
@@ -11,95 +12,174 @@
     Организационная структура
 </div>
 <div class="card bg-white m-auto col-md-10 order-md-1">
-
     <div class="row p-3">
-        <div class="col-3 flex-shrink-0 p-3 bg-white border-end">
+        <div class="col-4 flex-shrink-0 p-3 bg-white border-end">
             <ul class="list-unstyled ps-0">
-                <li class="mb-1">
-                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-                            data-bs-target="#home-collapse" aria-expanded="false">
-                        Home
-                    </button>
-                    <div class="collapse" id="home-collapse" style="">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="?department=1" class="link-dark rounded">Overview</a></li>
-                            <li><a href="?department=2" class="link-dark rounded">Updates</a></li>
-                            <li><a href="#" class="link-dark rounded">Reports</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="mb-1">
-                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-                            data-bs-target="#dashboard-collapse" aria-expanded="false">
-                        Dashboard
-                    </button>
-                    <div class="collapse" id="dashboard-collapse" style="">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="#" class="link-dark rounded">Overview</a></li>
-                            <li><a href="#" class="link-dark rounded">Weekly</a></li>
-                            <li><a href="#" class="link-dark rounded">Monthly</a></li>
-                            <li><a href="#" class="link-dark rounded">Annually</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="mb-1">
-                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-                            data-bs-target="#orders-collapse" aria-expanded="false">
-                        Orders
-                    </button>
-                    <div class="collapse" id="orders-collapse" style="">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="#" class="link-dark rounded">New</a></li>
-                            <li><a href="#" class="link-dark rounded">Processed</a></li>
-                            <li><a href="#" class="link-dark rounded">Shipped</a></li>
-                            <li><a href="#" class="link-dark rounded">Returned</a></li>
-                        </ul>
-                    </div>
-                </li>
+                <core:forEach items="${rootDep}" var="department">
+                    <li class="mb-1">
+                        <a href="?department=${department.code}"
+                           class="link-dark text-decoration-none rounded">${department.shortName}</a>
+                        <button class="btn btn-toggle align-items-center rounded collapsed"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#dep${department.code}-collapse" aria-expanded="false">
+                        </button>
+                    </li>
+                    <core:if test="${depMenu.containsKey(department)}">
+                        <div class="collapse" id="dep${department.code}-collapse" style="">
+                            <ul class="list-unstyled px-3">
+                                <core:forEach items="${depMenu.get(department)}" var="dep">
+                                    <li><a href="?department=${dep.code}"
+                                           class="link-dark text-decoration-none rounded">${dep.shortName}</a>
+                                        <core:if test="${depMenu.containsKey(dep)}">
+                                            <button class="btn btn-toggle align-items-center rounded collapsed"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#dep${dep.code}-collapse" aria-expanded="false">
+                                            </button>
+                                        </core:if>
+                                    </li>
+                                    <core:if test="${depMenu.containsKey(dep)}">
+                                        <div class="collapse" id="dep${dep.code}-collapse" style="">
+                                            <ul class="list-unstyled px-3">
+                                                <core:forEach items="${depMenu.get(dep)}" var="depa">
+                                                    <li><a href="?department=${depa.code}"
+                                                           class="link-dark text-decoration-none rounded">${depa.shortName}</a>
+                                                        <core:if test="${depMenu.containsKey(depa)}">
+                                                            <button class="btn btn-toggle align-items-center rounded collapsed"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target="#dep${depa.code}-collapse"
+                                                                    aria-expanded="false">
+                                                            </button>
+                                                        </core:if>
+                                                    </li>
+                                                    <core:if test="${depMenu.containsKey(depa)}">
+                                                        <div class="collapse" id="dep${depa.code}-collapse"
+                                                             style="">
+                                                            <ul class="list-unstyled px-3">
+                                                                <core:forEach items="${depMenu.get(depa)}"
+                                                                              var="depar">
+                                                                    <li><a href="?department=${depar.code}"
+                                                                           class="link-dark text-decoration-none rounded">${depar.shortName}</a>
+                                                                        <core:if test="${depMenu.containsKey(depar)}">
+                                                                            <button class="btn btn-toggle align-items-center rounded collapsed"
+                                                                                    data-bs-toggle="collapse"
+                                                                                    data-bs-target="#dep${depar.code}-collapse"
+                                                                                    aria-expanded="false">
+                                                                            </button>
+                                                                        </core:if>
+                                                                    </li>
+                                                                    <core:if test="${depMenu.containsKey(depar)}">
+                                                                        <div class="collapse"
+                                                                             id="dep${depar.code}-collapse"
+                                                                             style="">
+                                                                            <ul class="list-unstyled px-3">
+                                                                                <core:forEach
+                                                                                        items="${depMenu.get(depar)}"
+                                                                                        var="depart">
+                                                                                    <li>
+                                                                                        <a href="?department=${depart.code}"
+                                                                                           class="link-dark text-decoration-none rounded">${depart.shortName}</a>
+                                                                                        <core:if
+                                                                                                test="${depMenu.containsKey(depart)}">
+                                                                                            <button class="btn btn-toggle align-items-center rounded collapsed"
+                                                                                                    data-bs-toggle="collapse"
+                                                                                                    data-bs-target="#dep${depart.code}-collapse"
+                                                                                                    aria-expanded="false">
+                                                                                            </button>
+                                                                                        </core:if>
+                                                                                    </li>
+                                                                                    <core:if
+                                                                                            test="${depMenu.containsKey(depart)}">
+                                                                                        <div class="collapse"
+                                                                                             id="dep${depart.code}-collapse"
+                                                                                             style="">
+                                                                                            <ul class="list-unstyled px-3">
+                                                                                                <core:forEach
+                                                                                                        items="${depMenu.get(depart)}"
+                                                                                                        var="departm">
+                                                                                                    <li>
+                                                                                                        <a href="?department=${departm.code}"
+                                                                                                           class="link-dark text-decoration-none rounded">${departm.shortName}</a>
+                                                                                                        <core:if
+                                                                                                                test="${depMenu.containsKey(departm)}">
+                                                                                                            <button class="btn btn-toggle align-items-center rounded collapsed"
+                                                                                                                    data-bs-toggle="collapse"
+                                                                                                                    data-bs-target="#dep${departm.code}-collapse"
+                                                                                                                    aria-expanded="false">
+                                                                                                            </button>
+                                                                                                        </core:if>
+                                                                                                    </li>
+                                                                                                    <core:if
+                                                                                                            test="${depMenu.containsKey(department)}">
+                                                                                                        <div class="collapse"
+                                                                                                             id="dep${departm.code}-collapse"
+                                                                                                             style="">
+                                                                                                            <ul class="list-unstyled px-3">
+                                                                                                                <core:forEach
+                                                                                                                        items="${depMenu.get(departm)}"
+                                                                                                                        var="departme">
+                                                                                                                    <li>
+                                                                                                                        <a href="?department=${departme.code}"
+                                                                                                                           class="link-dark text-decoration-none rounded">${departme.shortName}</a>
+                                                                                                                    </li>
+                                                                                                                </core:forEach>
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </core:if>
+                                                                                                </core:forEach>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                    </core:if>
+                                                                                </core:forEach>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </core:if>
+                                                                </core:forEach>
+                                                            </ul>
+                                                        </div>
+                                                    </core:if>
+
+                                                </core:forEach>
+                                            </ul>
+                                        </div>
+                                    </core:if>
+
+                                </core:forEach>
+                            </ul>
+                        </div>
+                    </core:if>
+                </core:forEach>
+
             </ul>
         </div>
-        <div class="col-9 ms-sm-auto overflow-auto">
-                    <core:forEach items="${staff}" var="staffProfile">
-                            <div class="row border-bottom" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                <div class="col-11">
-                                    <p>${staffProfile.lastName.toUpperCase()} ${staffProfile.firstName} ${staffProfile.middleName}</p>
-                                    <p>${staffProfile.serviceInfo.department.name}, ${staffProfile.serviceInfo.position.title}</p>
-                                </div>
-                                <div class="col-1">
-
-                                <button type="button" class="btn btn-primary"
-                                            onclick="location.href='${pageContext.request.contextPath}/staff/personal/get?snils=${staffProfile.SNILS}'">
-                                        Edit
-                                    </button>
-                                </div>
-                            </div>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                             aria-hidden="true">
-                            <div class="modal-dialog modal-lg modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">
-                                                ${staffProfile.lastName.toUpperCase()} ${staffProfile.firstName} ${staffProfile.middleName}
-                                        </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>${staffProfile.serviceInfo.department.name}, ${staffProfile.serviceInfo.position.title}</p>
-                                        <p>${staffProfile.serviceInfo.department.name}, ${staffProfile.serviceInfo.position.title}</p>
-                                        <p>${staffProfile.serviceInfo.department.name}, ${staffProfile.serviceInfo.position.title}</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </core:forEach>
-
+        <div class="col-8 ms-sm-auto overflow-auto">
+            <form action="${pageContext.request.contextPath}/dashboard/search" method="get">
+                <div class="input-group p-3">
+                    <input type="search" class="form-control" name="searchRequest">
+                    <input type="submit" value="Поиск" class="btn btn-outline-primary">
+                </div>
+            </form>
+            <core:forEach items="${staff}" var="staffProfile">
+            <div class="row border-bottom">
+                <div class="col-10">
+                    <p>${staffProfile.lastName.toUpperCase()} ${staffProfile.firstName} ${staffProfile.middleName}</p>
+                    <p>${staffProfile.department.name}, ${staffProfile.position.title}</p>
+                </div>
+                <div class="col-2 text-end">
+                    <button type="button" class="btn btn-primary"
+                            onclick="location.href='${pageContext.request.contextPath}/staff/personal/get?snils=${staffProfile.SNILS}'"
+                        ${hidden}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                             class="bi bi-pencil" viewBox="0 0 16 16">
+                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
+        </core:forEach>
+
     </div>
+</div>
 
 </div>
 
