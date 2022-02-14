@@ -8,6 +8,8 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(columnDefinition = "VARCHAR")
     private String snils;
 
     @Column(unique = true, columnDefinition = "VARCHAR")
@@ -34,8 +36,10 @@ public class Users {
     @ManyToOne(targetEntity = Rank.class)
     private Rank rank;
 
+    @Column(columnDefinition = "VARCHAR")
     private String contacts;
 
+    @Column(columnDefinition = "VARCHAR")
     private String email;
     private boolean active;
 
