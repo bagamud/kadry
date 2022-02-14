@@ -16,19 +16,18 @@
             <ul class="nav nav-pills">
                 <li class="nav-item">
                     <a id="personalLink" class="nav-link active" aria-current="page"
-                       href="${pageContext.request.contextPath}/staff/personal">Информация</a>
+                       href="${pageContext.request.contextPath}/staff/personal?id=${staffProfile.id}">Информация</a>
                 </li>
                 <li class="nav-item">
-                    <a id="documentsLink" class="nav-link" href="${pageContext.request.contextPath}/staff/documents">Документы</a>
+                    <a id="documentsLink" class="nav-link" href="${pageContext.request.contextPath}/staff/documents?id=${staffProfile.id}">Документы</a>
                 </li>
                 <li class="nav-item">
-                    <a id="educationLink" class="nav-link" href="${pageContext.request.contextPath}/staff/education">Образование</a>
+                    <a id="educationLink" class="nav-link" href="${pageContext.request.contextPath}/staff/education?id=${staffProfile.id}">Образование</a>
                 </li>
                 <li class="nav-item">
-                    <a id="militaryLink" class="nav-link" href="${pageContext.request.contextPath}/staff/military">Служба
+                    <a id="militaryLink" class="nav-link" href="${pageContext.request.contextPath}/staff/military?id=${staffProfile.id}">Служба
                         в армии</a>
                 </li>
-            </ul>
             </ul>
             <div class="card">
                 <form class="needs-validation" action="${pageContext.request.contextPath}/staff" method="post"
@@ -42,7 +41,7 @@
                                        readonly
                                        min="0"
                                        id="id" type="number" name="id"
-                                       value="${staffProfile.card_id}">
+                                       value="${staffProfile.id}">
                             </div>
                         </div>
 
@@ -74,7 +73,7 @@
                             <label for="dateOfBirth">Дата рождения</label>
                             <div class="input-group">
                                 <input class="form-control"
-                                       id="dateOfBirth" type="datetime-local" name="dateOfBirth"
+                                       id="dateOfBirth" type="date" name="dateOfBirth"
                                        value="${staffProfile.dateOfBirth}">
                             </div>
                         </div>
@@ -155,7 +154,7 @@
                         <div class="col-md-2 mb-3">
                             <label for="serviceStartDate">Дата начала службы</label>
                             <input class="form-control"
-                                   id="serviceStartDate" type="datetime-local" name="serviceStartDate"
+                                   id="serviceStartDate" type="date" name="serviceStartDate"
                                    value="${staffProfile.serviceStartDate}">
                         </div>
                         <div class="col-md-3 mb-3">
@@ -172,7 +171,7 @@
                         <div class="col-md-3 mb-3">
                             <label for="rankAssigmentDate">Дата присвоения звания</label>
                             <input class="form-control"
-                                   id="rankAssigmentDate" type="datetime-local" name="rankAssigmentDate"
+                                   id="rankAssigmentDate" type="date" name="rankAssigmentDate"
                                    value="${staffProfile.rankAssigmentDate}">
                         </div>
                     </div>
@@ -183,8 +182,8 @@
                                     id="post"
                                     name="post">
                                 <option value="${staffProfile.position.code}">${staffProfile.position.title}</option>
-                                <core:forEach items="${position}" var="post">
-                                    <option value="${position.id}">${position.title}</option>
+                                <core:forEach items="${position}" var="position">
+                                    <option value="${position.code}">${position.title}</option>
                                 </core:forEach>
                             </select>
                         </div>
@@ -194,8 +193,8 @@
                                     id="department"
                                     name="department">
                                 <option value="${staffProfile.department.code}">${staffProfile.department.shortName}</option>
-                                <core:forEach items="${departments}" var="department">
-                                    <option value="${department.code}">${department.shortTitle}</option>
+                                <core:forEach items="${department}" var="department">
+                                    <option value="${department.code}">${department.shortName}</option>
                                 </core:forEach>
                             </select>
                         </div>
@@ -213,7 +212,7 @@
                         <div class="col-md-3 mb-3">
                             <label for="dismissalDate">Дата окончания службы</label>
                             <input class="form-control"
-                                   id="dismissalDate" type="datetime-local" name="dismissalDate"
+                                   id="dismissalDate" type="date" name="dismissalDate"
                                    value="${staffProfile.dismissalDate}">
                         </div>
 
@@ -221,12 +220,12 @@
                     <div class="row m-3">
                         <div class="col-auto btn-group-sm">
                             <input class="btn btn-primary" type="submit" value="Сохранить"
-                                   formaction="${pageContext.request.contextPath}/users/save"/>
+                                   formaction="${pageContext.request.contextPath}/staff/personal/add"/>
                             <input class="btn btn-primary" type="button"
-                                   onclick="location.href='${pageContext.request.contextPath}/users/profile'"
+                                   onclick="location.href='${pageContext.request.contextPath}/staff/personal/'"
                                    value="Очистить"/>
                             <input class="btn btn-primary" type="button"
-                                   onclick="location.href='${pageContext.request.contextPath}/users'"
+                                   onclick="location.href='${pageContext.request.contextPath}/dashboard'"
                                    value="Назад"/>
                         </div>
                     </div>

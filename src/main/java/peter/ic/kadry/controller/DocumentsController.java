@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import peter.ic.kadry.entity.PersonalDocuments;
+import peter.ic.kadry.entity.Staff;
 import peter.ic.kadry.entity.Users;
 import peter.ic.kadry.repository.*;
 
@@ -23,7 +24,6 @@ public class DocumentsController {
     final PersonalDocumentsRepository personalDocumentsRepository;
     final PositionRepository positionRepository;
     final RankRepository rankRepository;
-    final StaffIDCardRepository staffIDCardRepository;
     final DepartmentRepository departmentRepository;
     final UsersRepository usersRepository;
 
@@ -35,7 +35,6 @@ public class DocumentsController {
                                PersonalDocumentsRepository personalDocumentsRepository,
                                PositionRepository positionRepository,
                                RankRepository rankRepository,
-                               StaffIDCardRepository staffIDCardRepository,
                                DepartmentRepository departmentRepository,
                                UsersRepository usersRepository) {
         this.staffRepository = staffRepository;
@@ -46,7 +45,6 @@ public class DocumentsController {
         this.personalDocumentsRepository = personalDocumentsRepository;
         this.positionRepository = positionRepository;
         this.rankRepository = rankRepository;
-        this.staffIDCardRepository = staffIDCardRepository;
         this.departmentRepository = departmentRepository;
         this.usersRepository = usersRepository;
     }
@@ -63,12 +61,20 @@ public class DocumentsController {
 
 
     @GetMapping("/get")
-    public String getCard(@RequestParam(defaultValue = "0") String snils, Model model) {
+    public String getCard(@RequestParam(defaultValue = "0") int id, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
+        try {
+            Staff staff = staffRepository.findById(id);
+            if (user.getDepartment().getCode() == staff.getDepartment().getCode()) {
+                model.addAttribute("staffProfile", staff);
+                model.addAttribute("documentsCard", personalDocumentsRepository.findByStaffId(id));
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+        }
 
-        model.addAttribute("documentsCard", personalDocumentsRepository.findByStaff_SNILS(snils));
 
         return "staff.documents";
     }

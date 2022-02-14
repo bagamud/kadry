@@ -166,7 +166,7 @@
                 </div>
                 <div class="col-2 text-end">
                     <button type="button" class="btn btn-primary"
-                            onclick="location.href='${pageContext.request.contextPath}/staff/personal/get?snils=${staffProfile.SNILS}'"
+                            onclick="location.href='${pageContext.request.contextPath}/staff/personal/get?id=${staffProfile.id}'"
                         ${hidden}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
                              class="bi bi-pencil" viewBox="0 0 16 16">
@@ -181,7 +181,6 @@
     </div>
 </div>
 
-</div>
 
 <jsp:include page="../template/_footer.jsp"/>
 </body>

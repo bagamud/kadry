@@ -6,5 +6,5 @@ import peter.ic.kadry.entity.EducationInformation;
 import java.util.List;
 
 public interface EducationInfRepository extends CrudRepository<EducationInformation, Integer> {
-    List<EducationInformation> findByStaff_SNILS(String snils);
+    List<EducationInformation> findByStaffId(int id);
 }

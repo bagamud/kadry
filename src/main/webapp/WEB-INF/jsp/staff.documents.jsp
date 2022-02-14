@@ -16,22 +16,17 @@
             <ul class="nav nav-pills">
                 <li class="nav-item">
                     <a id="personalLink" class="nav-link" aria-current="page"
-                       href="${pageContext.request.contextPath}/staff/personal">Personal
-                        info</a>
+                       href="${pageContext.request.contextPath}/staff/personal?id=${staffProfile.id}">Информация</a>
                 </li>
                 <li class="nav-item">
-                    <a id="serviceLink" class="nav-link staff " href="${pageContext.request.contextPath}/staff/service">Service
-                        Info</a>
+                    <a id="documentsLink" class="nav-link active" href="${pageContext.request.contextPath}/staff/documents?id=${staffProfile.id}">Документы</a>
                 </li>
                 <li class="nav-item">
-                    <a id="documentsLink" class="nav-link active"
-                       href="${pageContext.request.contextPath}/staff/documents">Documents</a>
+                    <a id="educationLink" class="nav-link" href="${pageContext.request.contextPath}/staff/education?id=${staffProfile.id}">Образование</a>
                 </li>
                 <li class="nav-item">
-                    <a id="educationLink" class="nav-link" href="${pageContext.request.contextPath}/staff/education">Education</a>
-                </li>
-                <li class="nav-item">
-                    <a id="militaryLink" class="nav-link" href="${pageContext.request.contextPath}/staff/military">Military</a>
+                    <a id="militaryLink" class="nav-link" href="${pageContext.request.contextPath}/staff/military?id=${staffProfile.id}">Служба
+                        в армии</a>
                 </li>
             </ul>
             <div class="card">
@@ -46,7 +41,7 @@
                                        readonly
                                        min="0"
                                        id="id" type="number" name="id"
-                                       value="${staffProfile.card_id}">
+                                       value="${staffProfile.id}">
                             </div>
                         </div>
 
@@ -227,7 +222,7 @@
 
             </div>
         </div>
-
+    </div>
 </main>
 
 <script>

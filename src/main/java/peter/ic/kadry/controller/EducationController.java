@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import peter.ic.kadry.entity.EducationInformation;
+import peter.ic.kadry.entity.Staff;
 import peter.ic.kadry.entity.Users;
 import peter.ic.kadry.repository.*;
 
@@ -16,38 +17,20 @@ import peter.ic.kadry.repository.*;
 @RequestMapping("/staff/education")
 public class EducationController {
     final StaffRepository staffRepository;
-    final CitizenshipRepository citizenshipRepository;
     final DocTypeRepository docTypeRepository;
     final EducationInfRepository educationInfRepository;
-    final MilitaryServiceRepository militaryServiceRepository;
     final PersonalDocumentsRepository personalDocumentsRepository;
-    final PositionRepository positionRepository;
-    final RankRepository rankRepository;
-    final StaffIDCardRepository staffIDCardRepository;
-    final DepartmentRepository departmentRepository;
     final UsersRepository usersRepository;
 
     public EducationController(StaffRepository staffRepository,
-                               CitizenshipRepository citizenshipRepository,
                                DocTypeRepository docTypeRepository,
                                EducationInfRepository educationInfRepository,
-                               MilitaryServiceRepository militaryServiceRepository,
                                PersonalDocumentsRepository personalDocumentsRepository,
-                               PositionRepository positionRepository,
-                               RankRepository rankRepository,
-                               StaffIDCardRepository staffIDCardRepository,
-                               DepartmentRepository departmentRepository,
                                UsersRepository usersRepository) {
         this.staffRepository = staffRepository;
-        this.citizenshipRepository = citizenshipRepository;
         this.docTypeRepository = docTypeRepository;
         this.educationInfRepository = educationInfRepository;
-        this.militaryServiceRepository = militaryServiceRepository;
         this.personalDocumentsRepository = personalDocumentsRepository;
-        this.positionRepository = positionRepository;
-        this.rankRepository = rankRepository;
-        this.staffIDCardRepository = staffIDCardRepository;
-        this.departmentRepository = departmentRepository;
         this.usersRepository = usersRepository;
     }
 
@@ -61,12 +44,19 @@ public class EducationController {
     }
 
     @GetMapping("/get")
-    public String getCard(@RequestParam(defaultValue = "0") String snils, Model model) {
+    public String getCard(@RequestParam(defaultValue = "0") int id, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
-
-        model.addAttribute("educationInfoCard", educationInfRepository.findByStaff_SNILS(snils));
+        try {
+            Staff staff = staffRepository.findById(id);
+            if (user.getDepartment().getCode() == staff.getDepartment().getCode()) {
+                model.addAttribute("staffProfile", staff);
+                model.addAttribute("educationInfoCard", educationInfRepository.findByStaffId(id));
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+        }
 
         return "staff.education";
     }

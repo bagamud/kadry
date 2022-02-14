@@ -6,5 +6,5 @@ import peter.ic.kadry.entity.PersonalDocuments;
 import java.util.List;
 
 public interface PersonalDocumentsRepository extends CrudRepository<PersonalDocuments, Integer> {
-    List<PersonalDocuments> findByStaff_SNILS(String snils);
+    List<PersonalDocuments> findByStaffId(int id);
 }

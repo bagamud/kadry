@@ -17,36 +17,25 @@ import peter.ic.kadry.repository.*;
 public class StaffController {
     final StaffRepository staffRepository;
     final CitizenshipRepository citizenshipRepository;
-    final DocTypeRepository docTypeRepository;
-    final EducationInfRepository educationInfRepository;
-    final MilitaryServiceRepository militaryServiceRepository;
-    final PersonalDocumentsRepository personalDocumentsRepository;
+    final GenderRepository genderRepositor;
     final PositionRepository positionRepository;
+    final StatusRepository statusRepository;
     final RankRepository rankRepository;
-    final StaffIDCardRepository staffIDCardRepository;
     final DepartmentRepository departmentRepository;
     final UsersRepository usersRepository;
 
     public StaffController(StaffRepository staffRepository,
                            CitizenshipRepository citizenshipRepository,
-                           DocTypeRepository docTypeRepository,
-                           EducationInfRepository educationInfRepository,
-                           MilitaryServiceRepository militaryServiceRepository,
-                           PersonalDocumentsRepository personalDocumentsRepository,
-                           PositionRepository positionRepository,
-                           RankRepository rankRepository,
-                           StaffIDCardRepository staffIDCardRepository,
+                           GenderRepository genderRepositor, PositionRepository positionRepository,
+                           StatusRepository statusRepository, RankRepository rankRepository,
                            DepartmentRepository departmentRepository,
                            UsersRepository usersRepository) {
         this.staffRepository = staffRepository;
         this.citizenshipRepository = citizenshipRepository;
-        this.docTypeRepository = docTypeRepository;
-        this.educationInfRepository = educationInfRepository;
-        this.militaryServiceRepository = militaryServiceRepository;
-        this.personalDocumentsRepository = personalDocumentsRepository;
+        this.genderRepositor = genderRepositor;
         this.positionRepository = positionRepository;
+        this.statusRepository = statusRepository;
         this.rankRepository = rankRepository;
-        this.staffIDCardRepository = staffIDCardRepository;
         this.departmentRepository = departmentRepository;
         this.usersRepository = usersRepository;
     }
@@ -57,16 +46,27 @@ public class StaffController {
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
 
+        dictionaries(model);
+
+
         return "staff.personal";
     }
 
     @GetMapping("/get")
-    public String getCard(@RequestParam(defaultValue = "0") String snils, Model model) {
+    public String getCard(@RequestParam(defaultValue = "0") int id, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
+        dictionaries(model);
 
-        model.addAttribute("staffProfile", staffRepository.findBySNILS(snils));
+        try {
+            Staff staff = staffRepository.findById(id);
+            if (user.getDepartment().getCode() == staff.getDepartment().getCode()) {
+                model.addAttribute("staffProfile", staff);
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+        }
 
         return "staff.personal";
     }
@@ -75,9 +75,26 @@ public class StaffController {
     public String addCard(Staff staff, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
-
         model.addAttribute("user", user);
-        model.addAttribute("staffProfile", staffRepository.save(staff));
+
+        dictionaries(model);
+
+        try {
+            if (user.getDepartment().getCode() == staff.getDepartment().getCode()) {
+                model.addAttribute("staffProfile", staffRepository.save(staff));
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+        }
         return "staff.personal";
+    }
+
+    public void dictionaries(Model model) {
+        model.addAttribute("citizenship", citizenshipRepository.findAll());
+        model.addAttribute("gender", genderRepositor.findAll());
+        model.addAttribute("position", positionRepository.findAll());
+        model.addAttribute("rank", rankRepository.findAll());
+        model.addAttribute("department", departmentRepository.findAll());
+        model.addAttribute("status", statusRepository.findAll());
     }
 }

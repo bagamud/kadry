@@ -6,5 +6,5 @@ import peter.ic.kadry.entity.MilitaryService;
 import java.util.List;
 
 public interface MilitaryServiceRepository extends CrudRepository<MilitaryService, Integer> {
-    List<MilitaryService> findByStaff_SNILS(String snils);
+    List<MilitaryService> findByStaffId(int id);
 }

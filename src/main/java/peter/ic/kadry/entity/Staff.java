@@ -1,14 +1,13 @@
 package peter.ic.kadry.entity;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 public class Staff {
 
     @Id
-    private int card_id;
+    private int id;
 
     @Column(unique = true, columnDefinition = "VARCHAR(11)")
     private String SNILS;
@@ -70,7 +69,7 @@ public class Staff {
     @Column(columnDefinition = "VARCHAR")
     private String positionAppointmentOrder;
 
-    @ManyToOne(optional = true, targetEntity = Rank.class)
+    @ManyToOne(targetEntity = Rank.class)
     private Rank rank;
 
     private Date rankAssigmentDate;
@@ -83,12 +82,12 @@ public class Staff {
     @Column(columnDefinition = "VARCHAR")
     private String dismissalOrder;
 
-    public int getCard_id() {
-        return card_id;
+    public int getId() {
+        return id;
     }
 
-    public void setCard_id(int card_id) {
-        this.card_id = card_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getSNILS() {
