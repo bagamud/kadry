@@ -62,10 +62,10 @@
                             </div>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="surname">Отчество</label>
+                            <label for="middleName">Отчество</label>
                             <div class="input-group">
                                 <input class="form-control"
-                                       id="surname" type="text" name="surname"
+                                       id="middleName" type="text" name="middleName"
                                        value="${staffProfile.middleName}">
                             </div>
                         </div>
@@ -177,16 +177,35 @@
                     </div>
                     <div class="row m-3">
                         <div class="col-md-3 mb-3">
-                            <label for="post">Должность</label>
-                            <select class="form-control custom-select d-block w-100"
-                                    id="post"
-                                    name="post">
-                                <option value="${staffProfile.position.code}">${staffProfile.position.title}</option>
-                                <core:forEach items="${position}" var="position">
-                                    <option value="${position.code}">${position.title}</option>
-                                </core:forEach>
-                            </select>
+                            <label for="rankAssigmentDate">Дата присвоения звания</label>
+                            <div class="input-group"><input class="form-control"
+                                   id="rankAssigmentDate" type="date" name="rankAssigmentDate"
+                                   value="${staffProfile.rankAssigmentDate}">
                         </div>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Launch demo modal
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-md-4">
                             <label for="department">Подразделение</label>
                             <select class="form-control custom-select d-block w-100"
@@ -198,6 +217,18 @@
                                 </core:forEach>
                             </select>
                         </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="position">Должность</label>
+                            <select class="form-control custom-select d-block w-100"
+                                    id="position"
+                                    name="position">
+                                <option value="${staffProfile.position.code}">${staffProfile.position.title}</option>
+                                <core:forEach items="${position}" var="position">
+                                    <option value="${position.code}">${position.title}</option>
+                                </core:forEach>
+                            </select>
+                        </div>
+
                         <div class="col-md-2 mb-3">
                             <label for="status">Статус службы</label>
                             <select class="form-control custom-select d-block w-100"

@@ -4,6 +4,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ public class StaffController {
     final StatusRepository statusRepository;
     final RankRepository rankRepository;
     final DepartmentRepository departmentRepository;
+    final InheritanceOfDepartmentsRepository inheritanceOfDepartmentsRepository;
     final UsersRepository usersRepository;
 
     public StaffController(StaffRepository staffRepository,
@@ -29,6 +31,7 @@ public class StaffController {
                            GenderRepository genderRepositor, PositionRepository positionRepository,
                            StatusRepository statusRepository, RankRepository rankRepository,
                            DepartmentRepository departmentRepository,
+                           InheritanceOfDepartmentsRepository inheritanceOfDepartmentsRepository,
                            UsersRepository usersRepository) {
         this.staffRepository = staffRepository;
         this.citizenshipRepository = citizenshipRepository;
@@ -37,6 +40,7 @@ public class StaffController {
         this.statusRepository = statusRepository;
         this.rankRepository = rankRepository;
         this.departmentRepository = departmentRepository;
+        this.inheritanceOfDepartmentsRepository = inheritanceOfDepartmentsRepository;
         this.usersRepository = usersRepository;
     }
 
@@ -61,18 +65,19 @@ public class StaffController {
 
         try {
             Staff staff = staffRepository.findById(id);
-            if (user.getDepartment().getCode() == staff.getDepartment().getCode()) {
+            if (user.getDepartment().getCode() == staff.getDepartment().getCode()
+                    || inheritanceOfDepartmentsRepository.findInheritance(user.getDepartment().getCode()).contains(staff.getDepartment().getCode())) {
                 model.addAttribute("staffProfile", staff);
             }
         } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
+            model.addAttribute("errors", e.getMessage());
         }
 
         return "staff.personal";
     }
 
     @PostMapping("/add")
-    public String addCard(Staff staff, Model model) {
+    public String addCard(Staff staff, BindingResult bindingResult, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
@@ -80,11 +85,16 @@ public class StaffController {
         dictionaries(model);
 
         try {
-            if (user.getDepartment().getCode() == staff.getDepartment().getCode()) {
+            if (user.getDepartment().getCode() == staff.getDepartment().getCode()
+                    || inheritanceOfDepartmentsRepository.findInheritance(user.getDepartment().getCode()).contains(staff.getDepartment().getCode())) {
                 model.addAttribute("staffProfile", staffRepository.save(staff));
+                model.addAttribute("resultMessage", "Карточка успешно сохранена");
             }
         } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("bindingResult", bindingResult);
+            }
+            model.addAttribute("errors", e.getMessage());
         }
         return "staff.personal";
     }

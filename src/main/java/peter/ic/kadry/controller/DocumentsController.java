@@ -67,7 +67,7 @@ public class DocumentsController {
         model.addAttribute("user", user);
         try {
             Staff staff = staffRepository.findById(id);
-            if (user.getDepartment().getCode() == staff.getDepartment().getCode()) {
+            if (staff.getDepartment().getCode() == user.getDepartment().getCode()) {
                 model.addAttribute("staffProfile", staff);
                 model.addAttribute("documentsCard", personalDocumentsRepository.findByStaffId(id));
             }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import peter.ic.kadry.entity.Department;
 import peter.ic.kadry.entity.Users;
 import peter.ic.kadry.repository.DepartmentRepository;
+import peter.ic.kadry.repository.InheritanceOfDepartmentsRepository;
 import peter.ic.kadry.repository.StaffRepository;
 import peter.ic.kadry.repository.UsersRepository;
 
@@ -20,13 +21,15 @@ import java.util.*;
 public class DashboardController {
     final StaffRepository staffRepository;
     final DepartmentRepository departmentRepository;
+    final InheritanceOfDepartmentsRepository inheritanceOfDepartmentsRepository;
     final UsersRepository usersRepository;
 
     public DashboardController(StaffRepository staffRepository,
                                DepartmentRepository departmentRepository,
-                               UsersRepository usersRepository) {
+                               InheritanceOfDepartmentsRepository inheritanceOfDepartmentsRepository, UsersRepository usersRepository) {
         this.staffRepository = staffRepository;
         this.departmentRepository = departmentRepository;
+        this.inheritanceOfDepartmentsRepository = inheritanceOfDepartmentsRepository;
         this.usersRepository = usersRepository;
     }
 
@@ -36,13 +39,13 @@ public class DashboardController {
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
 
-        model.addAttribute("departments", departmentRepository.findAllByOrderByCode());
-        model.addAttribute("rootDep", departmentRepository.findAllByAnchor_NameOrderByCode("root"));
+        model.addAttribute("departments", departmentRepository.findAllByActiveIsTrueOrderByCode());
+        model.addAttribute("rootDep", departmentRepository.findAllByActiveIsTrueAndAnchor_NameOrderByCode("root"));
 
         Map<Department, List<Department>> depMenu = new HashMap<>();
 
-        for (Department dep : departmentRepository.findAll()) {
-            ArrayList<Department> menuList = departmentRepository.findAllByParentCodeOrderByCode(dep.getCode());
+        for (Department dep : departmentRepository.findAllByActiveIsTrueOrderByCode()) {
+            ArrayList<Department> menuList = departmentRepository.findAllByActiveIsTrueAndParentCodeOrderByCode(dep.getCode());
             if (!menuList.isEmpty()) {
                 depMenu.put(dep, menuList);
             }
@@ -52,7 +55,8 @@ public class DashboardController {
         if (department != 0) {
             model.addAttribute("staff", staffRepository.findAllByDepartment_code(department));
         }
-        if (user.getDepartment().getCode() != department) {
+
+        if (department == user.getDepartment().getCode() || !inheritanceOfDepartmentsRepository.findInheritance(user.getDepartment().getCode()).contains(department)) {
             model.addAttribute("hidden", "hidden");
         }
 
@@ -65,13 +69,13 @@ public class DashboardController {
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
 
-        model.addAttribute("departments", departmentRepository.findAllByOrderByCode());
-        model.addAttribute("rootDep", departmentRepository.findAllByAnchor_NameOrderByCode("root"));
+        model.addAttribute("departments", departmentRepository.findAllByActiveIsTrueOrderByCode());
+        model.addAttribute("rootDep", departmentRepository.findAllByActiveIsTrueAndAnchor_NameOrderByCode("root"));
 
         Map<Department, List<Department>> depMenu = new HashMap<>();
 
         for (Department dep : departmentRepository.findAll()) {
-            ArrayList<Department> menuList = departmentRepository.findAllByParentCodeOrderByCode(dep.getCode());
+            ArrayList<Department> menuList = departmentRepository.findAllByActiveIsTrueAndParentCodeOrderByCode(dep.getCode());
 
             if (!menuList.isEmpty()) {
                 depMenu.put(dep, menuList);

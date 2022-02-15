@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface DepartmentRepository extends CrudRepository<Department, Integer> {
-    List<Department> findAllByOrderByCode();
-    List<Department> findAllByAnchor_NameOrderByCode(String anchor);
-    ArrayList<Department> findAllByParentCodeOrderByCode(int parentCode);
+    List<Department> findAllByActiveIsTrueOrderByCode();
+    List<Department> findAllByActiveIsTrueAndAnchor_NameOrderByCode(String anchor);
+    ArrayList<Department> findAllByActiveIsTrueAndParentCodeOrderByCode(int parentCode);
 
 }

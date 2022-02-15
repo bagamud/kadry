@@ -8,6 +8,8 @@ public class KadryApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(KadryApplication.class, args);
+
+
+    }
     }
 
-}

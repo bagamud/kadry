@@ -26,6 +26,10 @@ public class Department {
 
     int regionCode;
 
+
+    @Column(nullable = true)
+    private boolean active;
+
     public int getCode() {
         return code;
     }
@@ -80,5 +84,13 @@ public class Department {
 
     public void setAnchor(Anchor anchor) {
         this.anchor = anchor;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
