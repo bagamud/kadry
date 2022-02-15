@@ -104,7 +104,8 @@ public class StaffController {
         model.addAttribute("gender", genderRepositor.findAll());
         model.addAttribute("position", positionRepository.findAll());
         model.addAttribute("rank", rankRepository.findAll());
-        model.addAttribute("department", departmentRepository.findAll());
+        model.addAttribute("department", departmentRepository.findAllByActiveIsTrueOrderByCode());
+        model.addAttribute("departmentRoot", departmentRepository.findAllByActiveIsTrueAndAnchor_NameOrderByCode("root"));
         model.addAttribute("status", statusRepository.findAll());
     }
 }

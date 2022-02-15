@@ -19,13 +19,16 @@
                        href="${pageContext.request.contextPath}/staff/personal?id=${staffProfile.id}">Информация</a>
                 </li>
                 <li class="nav-item">
-                    <a id="documentsLink" class="nav-link" href="${pageContext.request.contextPath}/staff/documents?id=${staffProfile.id}">Документы</a>
+                    <a id="documentsLink" class="nav-link"
+                       href="${pageContext.request.contextPath}/staff/documents?id=${staffProfile.id}">Документы</a>
                 </li>
                 <li class="nav-item">
-                    <a id="educationLink" class="nav-link" href="${pageContext.request.contextPath}/staff/education?id=${staffProfile.id}">Образование</a>
+                    <a id="educationLink" class="nav-link"
+                       href="${pageContext.request.contextPath}/staff/education?id=${staffProfile.id}">Образование</a>
                 </li>
                 <li class="nav-item">
-                    <a id="militaryLink" class="nav-link" href="${pageContext.request.contextPath}/staff/military?id=${staffProfile.id}">Служба
+                    <a id="militaryLink" class="nav-link"
+                       href="${pageContext.request.contextPath}/staff/military?id=${staffProfile.id}">Служба
                         в армии</a>
                 </li>
             </ul>
@@ -176,47 +179,110 @@
                         </div>
                     </div>
                     <div class="row m-3">
-                        <div class="col-md-3 mb-3">
-                            <label for="rankAssigmentDate">Дата присвоения звания</label>
-                            <div class="input-group"><input class="form-control"
-                                   id="rankAssigmentDate" type="date" name="rankAssigmentDate"
-                                   value="${staffProfile.rankAssigmentDate}">
-                        </div>
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Launch demo modal
-                        </button>
+                        <div class="col-md-3">
+                            <label for="department">Подразделение</label>
+                            <div class="input-group">
+                                <select class="form-control custom-select d-block "
+                                        id="department"
+                                        name="department" disabled>
+                                    <option value="${staffProfile.department.code}">${staffProfile.department.shortName}</option>
+                                    <core:forEach items="${department}" var="department">
+                                        <option value="${department.code}">${department.shortName}</option>
+                                    </core:forEach>
+                                </select>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#departmentModal">
+                                    Выбрать
+                                </button>
+                            </div>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        </div>
+                        <div class="modal fade" id="departmentModal" tabindex="-1"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <h5 class="modal-title" id="exampleModalLabel">Выберете подразделение</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        ...
+                                        <div>
+                                            <label for="departmentSelectRoot">Подразделение</label>
+                                            <select class="form-control custom-select d-block w-100"
+                                                    id="departmentSelectRoot"
+                                                    name="departmentSelectRoot">
+                                                <option value=""></option>
+                                                <core:forEach items="${departmentRoot}" var="department">
+                                                    <option value="${department.code}">${department.shortName}</option>
+                                                </core:forEach>
+                                            </select>
+                                        </div>
+                                        <div id="departmentDivSecond" hidden>
+                                            <label for="departmentSelectSecond"></label>
+                                            <select class="form-control custom-select d-block w-100"
+                                                    id="departmentSelectSecond"
+                                                    name="departmentSelectSecond">
+                                                <option value=""></option>
+                                                <core:forEach items="${department}" var="department">
+                                                    <option class="subselect depCode-${department.parentCode} departmentOptionSecond"
+                                                            value="${department.code}"
+                                                            hidden>${department.shortName}</option>
+                                                </core:forEach>
+                                            </select>
+                                        </div>
+                                        <div id="departmentDivThird" hidden>
+                                            <label for="departmentSelectThird"></label>
+                                            <select class="form-control custom-select d-block w-100"
+                                                    id="departmentSelectThird"
+                                                    name="departmentSelectThird">
+                                                <option value=""></option>
+                                                <core:forEach items="${department}" var="department">
+                                                    <option class="subselect depCode-${department.parentCode} departmentOptionThird"
+                                                            value="${department.code}"
+                                                            hidden>${department.shortName}</option>
+                                                </core:forEach>
+                                            </select>
+                                        </div>
+                                        <div id="departmentDivFour" hidden>
+                                            <label for="departmentSelectFour"></label>
+                                            <select class="form-control custom-select d-block w-100"
+                                                    id="departmentSelectFour"
+                                                    name="departmentSelectFour">
+                                                <option value=""></option>
+                                                <core:forEach items="${department}" var="department">
+                                                    <option class="subselect depCode-${department.parentCode} departmentOptionFour"
+                                                            value="${department.code}"
+                                                            hidden>${department.shortName}</option>
+                                                </core:forEach>
+                                            </select>
+                                        </div>
+                                        <div id="departmentDivFifth" hidden>
+                                            <label for="departmentSelectFifth"> </label>
+                                            <select class="form-control custom-select d-block w-100"
+                                                    id="departmentSelectFifth"
+                                                    name="departmentSelectFifth">
+                                                <option value=""></option>
+                                                <core:forEach items="${department}" var="department">
+                                                    <option class="subselect depCode-${department.parentCode} departmentOptionFifth"
+                                                            value="${department.code}"
+                                                            hidden>${department.shortName}</option>
+                                                </core:forEach>
+                                            </select>
+                                        </div>
+
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                            Закрыть
+                                        </button>
+                                        <button id="modalSave" type="button" class="btn btn-primary">Сохранить</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-4">
-                            <label for="department">Подразделение</label>
-                            <select class="form-control custom-select d-block w-100"
-                                    id="department"
-                                    name="department">
-                                <option value="${staffProfile.department.code}">${staffProfile.department.shortName}</option>
-                                <core:forEach items="${department}" var="department">
-                                    <option value="${department.code}">${department.shortName}</option>
-                                </core:forEach>
-                            </select>
-                        </div>
                         <div class="col-md-3 mb-3">
                             <label for="position">Должность</label>
                             <select class="form-control custom-select d-block w-100"
@@ -246,8 +312,9 @@
                                    id="dismissalDate" type="date" name="dismissalDate"
                                    value="${staffProfile.dismissalDate}">
                         </div>
-
                     </div>
+
+
                     <div class="row m-3">
                         <div class="col-auto btn-group-sm">
                             <input class="btn btn-primary" type="submit" value="Сохранить"
@@ -267,13 +334,57 @@
 
         </div>
     </div>
-
 </main>
 
 <script>
     if ('${resultMessage}' !== '') {
         alert('${resultMessage}');
     }
+    document.getElementById('departmentDivSecond').hidden = false;
+    document.getElementById('departmentDivThird').hidden = false;
+    document.getElementById('departmentDivFour').hidden = false;
+    document.getElementById('departmentDivFifth').hidden = false;
+
+    document.getElementById('departmentSelectRoot').onclick = function () {
+        const root = document.getElementById('departmentSelectRoot').value;
+
+        if (Array.from(document.getElementsByClassName('depCode-' + root + ' departmentOptionSecond')).length > 0) {
+            document.getElementById('departmentDivSecond').hidden = false;
+            Array.from(document.getElementsByClassName('depCode-' + root + ' departmentOptionSecond')).forEach((depOption) =>
+                depOption.hidden = false);
+        }
+    }
+    document.getElementById('departmentSelectSecond').onclick = function () {
+        const root = document.getElementById('departmentSelectSecond').value;
+
+        if (Array.from(document.getElementsByClassName('depCode-' + root + ' departmentOptionThird')).length > 0) {
+            document.getElementById('departmentDivThird').hidden = false;
+            Array.from(document.getElementsByClassName('depCode-' + root + ' departmentOptionThird')).forEach((depOption) =>
+                depOption.hidden = false);
+        }
+    }
+    document.getElementById('departmentSelectThird').onclick = function () {
+        const root = document.getElementById('departmentSelectThird').value;
+
+        if (Array.from(document.getElementsByClassName('depCode-' + root + ' departmentOptionFour')).length > 0) {
+            document.getElementById('departmentDivFour').hidden = false;
+            Array.from(document.getElementsByClassName('depCode-' + root + ' departmentOptionFour')).forEach((depOption) =>
+                depOption.hidden = false);
+        }
+    }
+    document.getElementById('departmentSelectFour').onclick = function () {
+        const root = document.getElementById('departmentSelectFour').value;
+
+        if (Array.from(document.getElementsByClassName('depCode-' + root + ' departmentOptionFifth')).length > 0) {
+            document.getElementById('departmentDivFifth').hidden = false;
+            Array.from(document.getElementsByClassName('depCode-' + root + ' departmentOptionFifth')).forEach((depOption) =>
+                depOption.hidden = false);
+        }
+    }
+    document.getElementById('modalSave').onclick = function () {
+        document.getElementById('department').value = document.getElementById('departmentSelectFour').selectedOptions[0].value;    }
+
+
 </script>
 <jsp:include page="../template/_footer.jsp"/>
 </body>
