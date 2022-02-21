@@ -11,7 +11,7 @@ public class Position {
     @Id
     int code;
 
-    @Column(columnDefinition = "VARCHAR")
+//    @Column(columnDefinition = "VARCHAR")
     String title;
 
     private int parentCode;

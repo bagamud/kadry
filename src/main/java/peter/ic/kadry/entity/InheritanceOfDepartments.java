@@ -1,24 +1,21 @@
 package peter.ic.kadry.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class InheritanceOfDepartments {
 
     @Id
-    @GeneratedValue
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @ManyToOne
     private Department department;
 
     @ManyToOne
-    private Department parent;
+    private Department parentCode;
 
-    private int level;
+    private int inheritanceLevel;
 
     public void setId(Integer id) {
         this.id = id;
@@ -40,19 +37,19 @@ public class InheritanceOfDepartments {
         this.department = department;
     }
 
-    public Department getParent() {
-        return parent;
+    public Department getParentCode() {
+        return parentCode;
     }
 
-    public void setParent(Department parent) {
-        this.parent = parent;
+    public void setParentCode(Department parentCode) {
+        this.parentCode = parentCode;
     }
 
-    public int getLevel() {
-        return level;
+    public int getInheritanceLevel() {
+        return inheritanceLevel;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void setInheritanceLevel(int inheritanceLevel) {
+        this.inheritanceLevel = inheritanceLevel;
     }
 }

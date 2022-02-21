@@ -18,13 +18,13 @@ public class PersonalDocuments {
     @ManyToOne(targetEntity = DocumentType.class)
     private DocumentType documentType;
 
-    @Column(columnDefinition = "VARCHAR")
-    private String serialCode;
+//    @Column(columnDefinition = "VARCHAR")
+    private String docSerialCode;
 
-    @Column(columnDefinition = "VARCHAR")
-    private String number;
+//    @Column(columnDefinition = "VARCHAR")
+    private String docNumber;
 
-    @Column(columnDefinition = "VARCHAR")
+//    @Column(columnDefinition = "VARCHAR")
     private String depCode;
 
     private Date issueDate;
@@ -54,20 +54,20 @@ public class PersonalDocuments {
         this.documentType = documentType;
     }
 
-    public String getSerialCode() {
-        return serialCode;
+    public String getDocSerialCode() {
+        return docSerialCode;
     }
 
-    public void setSerialCode(String serialCode) {
-        this.serialCode = serialCode;
+    public void setDocSerialCode(String docSerialCode) {
+        this.docSerialCode = docSerialCode;
     }
 
-    public String getNumber() {
-        return number;
+    public String getDocNumber() {
+        return docNumber;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setDocNumber(String docNumber) {
+        this.docNumber = docNumber;
     }
 
     public String getDepCode() {

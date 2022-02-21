@@ -6,25 +6,25 @@ import javax.persistence.*;
 public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(columnDefinition = "VARCHAR")
+//    @Column(columnDefinition = "VARCHAR")
     private String snils;
 
-    @Column(unique = true, columnDefinition = "VARCHAR")
+//    @Column(unique = true, columnDefinition = "VARCHAR")
     private String username;
 
-    @Column(columnDefinition = "VARCHAR")
+//    @Column(columnDefinition = "VARCHAR")
     private String passwd;
 
-    @Column(columnDefinition = "VARCHAR")
+//    @Column(columnDefinition = "VARCHAR")
     private String lastName;
 
-    @Column(columnDefinition = "VARCHAR")
+//    @Column(columnDefinition = "VARCHAR")
     private String firstName;
 
-    @Column(columnDefinition = "VARCHAR")
+//    @Column(columnDefinition = "VARCHAR")
     private String middleName;
 
     @ManyToOne(targetEntity = Department.class)
@@ -36,10 +36,10 @@ public class Users {
     @ManyToOne(targetEntity = Rank.class)
     private Rank rank;
 
-    @Column(columnDefinition = "VARCHAR")
+//    @Column(columnDefinition = "VARCHAR")
     private String contacts;
 
-    @Column(columnDefinition = "VARCHAR")
+//    @Column(columnDefinition = "VARCHAR")
     private String email;
     private boolean active;
 

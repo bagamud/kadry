@@ -10,7 +10,7 @@ public class Citizenship {
     @Id
     private int id;
 
-    @Column(columnDefinition = "VARCHAR")
+//    @Column(columnDefinition = "VARCHAR")
     private String title;
 
     public int getId() {

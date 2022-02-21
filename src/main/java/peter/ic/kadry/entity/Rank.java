@@ -10,7 +10,7 @@ public class Rank {
     @Id
     private int id;
 
-    @Column(columnDefinition = "VARCHAR")
+//    @Column(columnDefinition = "VARCHAR")
     private String title;
 
     private int tariff;

@@ -10,7 +10,7 @@ public class Gender {
     @Id
     private int id;
 
-    @Column(columnDefinition = "VARCHAR")
+//    @Column(columnDefinition = "VARCHAR")
     private String name;
 
     public int getId() {

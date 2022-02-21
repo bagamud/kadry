@@ -7,6 +7,6 @@ import peter.ic.kadry.entity.InheritanceOfDepartments;
 import java.util.ArrayList;
 
 public interface InheritanceOfDepartmentsRepository extends CrudRepository<InheritanceOfDepartments, Integer> {
-    @Query("SELECT parent.code FROM InheritanceOfDepartments WHERE department.code = :code")
+    @Query("SELECT parentCode.code FROM InheritanceOfDepartments WHERE department.code = :code")
     ArrayList<Integer> findInheritance(int code);
 }

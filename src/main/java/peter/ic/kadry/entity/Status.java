@@ -10,7 +10,7 @@ public class Status {
     @Id
     private int id;
 
-    @Column(columnDefinition = "VARCHAR")
+//    @Column(columnDefinition = "VARCHAR")
     private String title;
 
     private boolean isServing;

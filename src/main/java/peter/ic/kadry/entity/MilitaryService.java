@@ -14,13 +14,13 @@ public class MilitaryService {
 
     private boolean serveInArmy;
 
-    @Column(columnDefinition = "VARCHAR")
+//    @Column(columnDefinition = "VARCHAR")
     private String militaryUnit;
 
     private Date serveStart;
     private Date serveEnd;
 
-    @Column(columnDefinition = "VARCHAR")
+//    @Column(columnDefinition = "VARCHAR")
     private String armyRank;
 
     public int getId() {
