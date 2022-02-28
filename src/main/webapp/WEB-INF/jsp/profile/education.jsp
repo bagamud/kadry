@@ -2,11 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html lang="ru">
 <head>
-    <jsp:include page="../template/_metaStyle.jsp"/>
+    <jsp:include page="../../template/_metaStyle.jsp"/>
     <title>Профиль пользователя</title>
 </head>
 <body style="background-color: rgba(205,219,245,0.39)">
-<jsp:include page="../template/_menu.jsp"/>
+<jsp:include page="../../template/_menu.jsp"/>
 <main>
     <div class="text-center h2">
         Профиль сотрудника
@@ -16,24 +16,24 @@
             <ul class="nav nav-pills">
                 <li class="nav-item">
                     <a id="personalLink" class="nav-link" aria-current="page"
-                       href="${pageContext.request.contextPath}/staff/personal?id=${staffProfile.id}">Информация</a>
+                       href="${pageContext.request.contextPath}/profile/personal?id=${staffProfile.id}">Информация</a>
                 </li>
                 <li class="nav-item">
                     <a id="documentsLink" class="nav-link"
-                       href="${pageContext.request.contextPath}/staff/documents?id=${staffProfile.id}">Документы</a>
+                       href="${pageContext.request.contextPath}/profile/documents?id=${staffProfile.id}">Документы</a>
                 </li>
                 <li class="nav-item">
-                    <a id="educationLink" class="nav-link"
-                       href="${pageContext.request.contextPath}/staff/education?id=${staffProfile.id}">Образование</a>
+                    <a id="educationLink" class="nav-link active"
+                       href="${pageContext.request.contextPath}/profile/education?id=${staffProfile.id}">Образование</a>
                 </li>
                 <li class="nav-item">
-                    <a id="militaryLink" class="nav-link active"
-                       href="${pageContext.request.contextPath}/staff/military?id=${staffProfile.id}">Служба
+                    <a id="militaryLink" class="nav-link"
+                       href="${pageContext.request.contextPath}/profile/military?id=${staffProfile.id}">Служба
                         в армии</a>
                 </li>
             </ul>
             <div class="card">
-                <form class="needs-validation" action="${pageContext.request.contextPath}/staff" method="post"
+                <form class="needs-validation" action="${pageContext.request.contextPath}/profile/education" method="post"
                       name="form"
                       id="formId">
                     <div class="row m-3">
@@ -233,6 +233,6 @@
         alert('${resultMessage}');
     }
 </script>
-<jsp:include page="../template/_footer.jsp"/>
+<jsp:include page="../../template/_footer.jsp"/>
 </body>
 </html>

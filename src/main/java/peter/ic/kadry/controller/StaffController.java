@@ -14,11 +14,11 @@ import peter.ic.kadry.entity.Users;
 import peter.ic.kadry.repository.*;
 
 @Controller
-@RequestMapping("/staff/personal")
+@RequestMapping("/profile/personal")
 public class StaffController {
     final StaffRepository staffRepository;
     final CitizenshipRepository citizenshipRepository;
-    final GenderRepository genderRepositor;
+    final GenderRepository genderRepository;
     final PositionRepository positionRepository;
     final StatusRepository statusRepository;
     final RankRepository rankRepository;
@@ -28,14 +28,14 @@ public class StaffController {
 
     public StaffController(StaffRepository staffRepository,
                            CitizenshipRepository citizenshipRepository,
-                           GenderRepository genderRepositor, PositionRepository positionRepository,
+                           GenderRepository genderRepository, PositionRepository positionRepository,
                            StatusRepository statusRepository, RankRepository rankRepository,
                            DepartmentRepository departmentRepository,
                            InheritanceOfDepartmentsRepository inheritanceOfDepartmentsRepository,
                            UsersRepository usersRepository) {
         this.staffRepository = staffRepository;
         this.citizenshipRepository = citizenshipRepository;
-        this.genderRepositor = genderRepositor;
+        this.genderRepository = genderRepository;
         this.positionRepository = positionRepository;
         this.statusRepository = statusRepository;
         this.rankRepository = rankRepository;
@@ -53,7 +53,7 @@ public class StaffController {
         dictionaries(model);
 
 
-        return "staff.personal";
+        return "profile/personal";
     }
 
     @GetMapping("/get")
@@ -65,15 +65,15 @@ public class StaffController {
 
         try {
             Staff staff = staffRepository.findById(id);
-            if (user.getDepartment().getCode() == staff.getDepartment().getCode()
-                    || inheritanceOfDepartmentsRepository.findInheritance(user.getDepartment().getCode()).contains(staff.getDepartment().getCode())) {
-                model.addAttribute("staffProfile", staff);
-            }
+//            if (user.getDepartment().getCode() == staff.getDepartment().getCode()
+//                    || inheritanceOfDepartmentsRepository.findInheritance(user.getDepartment().getCode()).contains(staff.getDepartment().getCode())) {
+            model.addAttribute("staffProfile", staff);
+//            }
         } catch (Exception e) {
             model.addAttribute("errors", e.getMessage());
         }
 
-        return "staff.personal";
+        return "profile/personal";
     }
 
     @PostMapping("/add")
@@ -85,23 +85,23 @@ public class StaffController {
         dictionaries(model);
 
         try {
-            if (user.getDepartment().getCode() == staff.getDepartment().getCode()
-                    || inheritanceOfDepartmentsRepository.findInheritance(user.getDepartment().getCode()).contains(staff.getDepartment().getCode())) {
-                model.addAttribute("staffProfile", staffRepository.save(staff));
-                model.addAttribute("resultMessage", "Карточка успешно сохранена");
-            }
+//            if (user.getDepartment().getCode() == staff.getDepartment().getCode()
+//                    || inheritanceOfDepartmentsRepository.findInheritance(user.getDepartment().getCode()).contains(staff.getDepartment().getCode())) {
+            model.addAttribute("staffProfile", staffRepository.save(staff));
+            model.addAttribute("resultMessage", "Карточка успешно сохранена");
+//            }
         } catch (Exception e) {
             if (bindingResult.hasErrors()) {
                 model.addAttribute("bindingResult", bindingResult);
             }
             model.addAttribute("errors", e.getMessage());
         }
-        return "staff.personal";
+        return "profile/personal";
     }
 
     public void dictionaries(Model model) {
         model.addAttribute("citizenship", citizenshipRepository.findAll());
-        model.addAttribute("gender", genderRepositor.findAll());
+        model.addAttribute("gender", genderRepository.findAll());
         model.addAttribute("position", positionRepository.findAll());
         model.addAttribute("rank", rankRepository.findAll());
         model.addAttribute("department", departmentRepository.findAllByActiveIsTrueOrderByCode());

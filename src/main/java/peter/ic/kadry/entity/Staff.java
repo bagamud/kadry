@@ -1,6 +1,9 @@
 package peter.ic.kadry.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.sql.Date;
 
 @Entity
@@ -12,13 +15,13 @@ public class Staff {
     @Column(unique = true, columnDefinition = "VARCHAR(11)")
     private String SNILS;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String lastName;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String firstName;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String middleName;
 
     private Date dateOfBirth;
@@ -26,34 +29,34 @@ public class Staff {
     @ManyToOne
     private Gender gender;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String placeOfBirth;
 
     @ManyToOne(targetEntity = Citizenship.class)
     private Citizenship citizenship;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String placeOfResidence;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String placeOfRegistration;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String contacts;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String email;
 
-//    @Column(unique = true, columnDefinition = "VARCHAR")
+    //    @Column(unique = true, columnDefinition = "VARCHAR")
     private String username;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String personalNumberLetter;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String personalNumberDigits;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String personalNumberOrder;
 
     private Date personalNumberOrderDate;
@@ -66,7 +69,7 @@ public class Staff {
     @ManyToOne(targetEntity = Position.class)
     private Position position;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String positionAppointmentOrder;
 
     @ManyToOne(targetEntity = Rank.class)
@@ -79,7 +82,7 @@ public class Staff {
 
     private Date dismissalDate;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String dismissalOrder;
 
     public int getId() {

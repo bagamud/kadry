@@ -18,17 +18,19 @@ public class PersonalDocuments {
     @ManyToOne(targetEntity = DocumentType.class)
     private DocumentType documentType;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String docSerialCode;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String docNumber;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String depCode;
 
     private Date issueDate;
     private Date expirationDate;
+
+    private boolean active;
 
     public int getId() {
         return id;
@@ -92,5 +94,13 @@ public class PersonalDocuments {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

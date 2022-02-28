@@ -12,21 +12,17 @@ public class Department {
     int code;
     int parentCode;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     String name;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     String fullName;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     String shortName;
-
+    int regionCode;
     @ManyToOne
     private Anchor anchor;
-
-    int regionCode;
-
-
     @Column(nullable = true)
     private boolean active;
 

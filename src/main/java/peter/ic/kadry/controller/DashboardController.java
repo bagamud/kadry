@@ -14,7 +14,10 @@ import peter.ic.kadry.repository.InheritanceOfDepartmentsRepository;
 import peter.ic.kadry.repository.StaffRepository;
 import peter.ic.kadry.repository.UsersRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -56,9 +59,9 @@ public class DashboardController {
             model.addAttribute("staff", staffRepository.findAllByDepartment_code(department));
         }
 
-        if (department == user.getDepartment().getCode() || !inheritanceOfDepartmentsRepository.findInheritance(user.getDepartment().getCode()).contains(department)) {
-            model.addAttribute("hidden", "hidden");
-        }
+//        if (department == user.getDepartment().getCode() || !inheritanceOfDepartmentsRepository.findInheritance(user.getDepartment().getCode()).contains(department)) {
+//            model.addAttribute("hidden", "hidden");
+//        }
 
         return "dashboard";
     }

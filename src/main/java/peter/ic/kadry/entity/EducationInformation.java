@@ -1,6 +1,5 @@
 package peter.ic.kadry.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -17,13 +16,13 @@ public class EducationInformation {
     @ManyToOne
     private EducationType educationType;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String educationalInstitution;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String specialization;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String diploma;
 
     public int getId() {

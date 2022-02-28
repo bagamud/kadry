@@ -1,6 +1,8 @@
 package peter.ic.kadry.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class InheritanceOfDepartments {
@@ -17,12 +19,12 @@ public class InheritanceOfDepartments {
 
     private int inheritanceLevel;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setId(int id) {

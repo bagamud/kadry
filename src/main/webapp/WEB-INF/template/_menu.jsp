@@ -15,13 +15,13 @@
             <a class="nav-link px-2 text-white" href="${pageContext.request.contextPath}/dashboard">Подразделения и сотрудники</a>
         </li>
         <li>
-            <a class="nav-link px-2 text-white" href="${pageContext.request.contextPath}/staff/personal">Профиль</a>
+            <a class="nav-link px-2 text-white" href="${pageContext.request.contextPath}/profile/personal">Профиль</a>
         </li>
         <li>
             <a class="nav-link px-2 text-white" href="${pageContext.request.contextPath}/reports">Отчеты</a>
         </li>
     </ul>
-    <a class="nav-link px-2 text-white" href="${pageContext.request.contextPath}/profile"
+    <a class="nav-link px-2 text-white" href="${pageContext.request.contextPath}/user"
        id="principal">${user.lastName} ${user.firstName} ${user.middleName}</a>
 
 

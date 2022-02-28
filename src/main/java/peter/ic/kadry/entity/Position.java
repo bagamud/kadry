@@ -1,6 +1,5 @@
 package peter.ic.kadry.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -11,7 +10,7 @@ public class Position {
     @Id
     int code;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     String title;
 
     private int parentCode;

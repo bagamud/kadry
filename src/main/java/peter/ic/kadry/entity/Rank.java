@@ -1,6 +1,5 @@
 package peter.ic.kadry.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -10,7 +9,7 @@ public class Rank {
     @Id
     private int id;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String title;
 
     private int tariff;

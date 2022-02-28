@@ -60,7 +60,7 @@
             </div>
         </div>
         <div class="card col-3">
-            <form action="${pageContext.request.contextPath}/profile/changePsw" method="post">
+            <form action="${pageContext.request.contextPath}/user/changePsw" method="post">
                 <div hidden>
                     <input class="form-control"
                            readonly

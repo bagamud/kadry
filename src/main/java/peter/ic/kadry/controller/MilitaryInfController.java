@@ -14,7 +14,7 @@ import peter.ic.kadry.entity.Users;
 import peter.ic.kadry.repository.*;
 
 @Controller
-@RequestMapping("/staff/military")
+@RequestMapping("/profile/military")
 public class MilitaryInfController {
     final StaffRepository staffRepository;
     final DocTypeRepository docTypeRepository;
@@ -40,7 +40,7 @@ public class MilitaryInfController {
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
 
-        return "staff.military";
+        return "profile/military";
     }
 
     @GetMapping("/get")
@@ -59,7 +59,7 @@ public class MilitaryInfController {
             model.addAttribute("error", e.getMessage());
         }
 
-        return "staff.military";
+        return "profile/military";
     }
 
     @PostMapping("/add")
@@ -69,7 +69,7 @@ public class MilitaryInfController {
 
         model.addAttribute("user", user);
         model.addAttribute("militariServiceCard", militaryServiceRepository.save(militaryService));
-        return "staff.military";
+        return "profile/military";
     }
 
 

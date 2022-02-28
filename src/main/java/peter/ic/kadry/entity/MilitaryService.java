@@ -1,6 +1,8 @@
 package peter.ic.kadry.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.sql.Date;
 
 @Entity
@@ -14,13 +16,13 @@ public class MilitaryService {
 
     private boolean serveInArmy;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String militaryUnit;
 
     private Date serveStart;
     private Date serveEnd;
 
-//    @Column(columnDefinition = "VARCHAR")
+    //    @Column(columnDefinition = "VARCHAR")
     private String armyRank;
 
     public int getId() {

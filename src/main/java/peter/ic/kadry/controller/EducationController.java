@@ -14,7 +14,7 @@ import peter.ic.kadry.entity.Users;
 import peter.ic.kadry.repository.*;
 
 @Controller
-@RequestMapping("/staff/education")
+@RequestMapping("/profile/education")
 public class EducationController {
     final StaffRepository staffRepository;
     final DocTypeRepository docTypeRepository;
@@ -40,7 +40,7 @@ public class EducationController {
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
 
-        return "staff.education";
+        return "profile/education";
     }
 
     @GetMapping("/get")
@@ -58,7 +58,7 @@ public class EducationController {
             model.addAttribute("error", e.getMessage());
         }
 
-        return "staff.education";
+        return "profile/education";
     }
 
     @PostMapping("/add")
@@ -69,7 +69,7 @@ public class EducationController {
 
         model.addAttribute("educationInfoCard", educationInfRepository.save(educationInformation));
 
-        return "staff.education";
+        return "profile/education";
     }
 
 }

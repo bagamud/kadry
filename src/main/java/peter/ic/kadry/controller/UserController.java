@@ -14,7 +14,7 @@ import peter.ic.kadry.entity.Users;
 import peter.ic.kadry.repository.UsersRepository;
 
 @Controller
-@RequestMapping("/profile")
+@RequestMapping("/user")
 public class UserController {
 
     final UsersRepository usersRepository;
@@ -29,7 +29,7 @@ public class UserController {
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
 
-        return "profile";
+        return "user";
     }
 
     @PostMapping("/changePsw")
@@ -49,6 +49,6 @@ public class UserController {
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
         }
-        return "profile";
+        return "user";
     }
 }

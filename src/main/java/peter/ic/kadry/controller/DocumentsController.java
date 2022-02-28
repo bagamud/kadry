@@ -11,72 +11,48 @@ import org.springframework.web.bind.annotation.RequestParam;
 import peter.ic.kadry.entity.PersonalDocuments;
 import peter.ic.kadry.entity.Staff;
 import peter.ic.kadry.entity.Users;
-import peter.ic.kadry.repository.*;
+import peter.ic.kadry.repository.DocTypeRepository;
+import peter.ic.kadry.repository.PersonalDocumentsRepository;
+import peter.ic.kadry.repository.StaffRepository;
+import peter.ic.kadry.repository.UsersRepository;
 
 @Controller
-@RequestMapping("/staff/documents")
+@RequestMapping("/profile/documents")
 public class DocumentsController {
     final StaffRepository staffRepository;
-    final CitizenshipRepository citizenshipRepository;
     final DocTypeRepository docTypeRepository;
-    final EducationInfRepository educationInfRepository;
-    final MilitaryServiceRepository militaryServiceRepository;
     final PersonalDocumentsRepository personalDocumentsRepository;
-    final PositionRepository positionRepository;
-    final RankRepository rankRepository;
-    final DepartmentRepository departmentRepository;
     final UsersRepository usersRepository;
 
     public DocumentsController(StaffRepository staffRepository,
-                               CitizenshipRepository citizenshipRepository,
                                DocTypeRepository docTypeRepository,
-                               EducationInfRepository educationInfRepository,
-                               MilitaryServiceRepository militaryServiceRepository,
                                PersonalDocumentsRepository personalDocumentsRepository,
-                               PositionRepository positionRepository,
-                               RankRepository rankRepository,
-                               DepartmentRepository departmentRepository,
                                UsersRepository usersRepository) {
         this.staffRepository = staffRepository;
-        this.citizenshipRepository = citizenshipRepository;
         this.docTypeRepository = docTypeRepository;
-        this.educationInfRepository = educationInfRepository;
-        this.militaryServiceRepository = militaryServiceRepository;
         this.personalDocumentsRepository = personalDocumentsRepository;
-        this.positionRepository = positionRepository;
-        this.rankRepository = rankRepository;
-        this.departmentRepository = departmentRepository;
         this.usersRepository = usersRepository;
     }
 
 
     @GetMapping("")
-    public String card(Model model) {
+    public String cardList(@RequestParam(defaultValue = "0") int id, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
+        model.addAttribute("documentType", docTypeRepository.findAll());
 
-        return "staff.documents";
-    }
-
-
-    @GetMapping("/get")
-    public String getCard(@RequestParam(defaultValue = "0") int id, Model model) {
-        User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Users user = usersRepository.findByUsername(userAuth.getUsername());
-        model.addAttribute("user", user);
         try {
             Staff staff = staffRepository.findById(id);
-            if (staff.getDepartment().getCode() == user.getDepartment().getCode()) {
-                model.addAttribute("staffProfile", staff);
-                model.addAttribute("documentsCard", personalDocumentsRepository.findByStaffId(id));
+            model.addAttribute("staffProfile", staff);
+            if (id != 0) {
+                model.addAttribute("documentsList", personalDocumentsRepository.findByStaffId(id));
             }
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
         }
 
-
-        return "staff.documents";
+        return "profile/documents";
     }
 
     @PostMapping("add")
@@ -84,10 +60,23 @@ public class DocumentsController {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
+        model.addAttribute("documentType", docTypeRepository.findAll());
 
-        model.addAttribute("documentsCard", personalDocumentsRepository.save(personalDocuments));
+        model.addAttribute("documentCard", personalDocumentsRepository.save(personalDocuments));
 
-        return "staff.documents";
+        return "profile/documents";
     }
 
+    @PostMapping("inactive")
+    public String makeInactive(PersonalDocuments personalDocuments, Model model) {
+        User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Users user = usersRepository.findByUsername(userAuth.getUsername());
+        model.addAttribute("user", user);
+
+        personalDocuments.setActive(false);
+        model.addAttribute("documentType", docTypeRepository.findAll());
+        model.addAttribute("documentCard", personalDocumentsRepository.save(personalDocuments));
+
+        return "profile/documents";
+    }
 }
