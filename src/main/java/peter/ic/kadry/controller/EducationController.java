@@ -35,37 +35,38 @@ public class EducationController {
     }
 
     @GetMapping("")
-    public String card(Model model) {
-        User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Users user = usersRepository.findByUsername(userAuth.getUsername());
-        model.addAttribute("user", user);
-
-        return "profile/education";
-    }
-
-    @GetMapping("/get")
-    public String getCard(@RequestParam(defaultValue = "0") int id, Model model) {
+    public String getCard(@RequestParam(defaultValue = "0") int staffId, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
         try {
-            Staff staff = staffRepository.findById(id);
-            if (user.getDepartment().getCode() == staff.getDepartment().getCode()) {
-                model.addAttribute("staffProfile", staff);
-                model.addAttribute("educationInfoCard", educationInfRepository.findByStaffId(id));
+            Staff staff = staffRepository.findByStaffId(staffId);
+            model.addAttribute("staffProfile", staff);
+            if (staffId != 0) {
+                model.addAttribute("educationInfoCard", educationInfRepository.findByStaffStaffId(staffId));
             }
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
         }
 
+
         return "profile/education";
     }
 
     @PostMapping("/add")
-    public String addCard(EducationInformation educationInformation, Model model) {
+    public String addCard(int staffId, EducationInformation educationInformation, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
+        try {
+            Staff staff = staffRepository.findByStaffId(staffId);
+            model.addAttribute("staffProfile", staff);
+            if (staffId != 0) {
+                model.addAttribute("educationInfoCard", educationInfRepository.findByStaffStaffId(staffId));
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+        }
 
         model.addAttribute("educationInfoCard", educationInfRepository.save(educationInformation));
 

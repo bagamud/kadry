@@ -6,5 +6,5 @@ import peter.ic.kadry.entity.PersonalDocuments;
 import java.util.List;
 
 public interface PersonalDocumentsRepository extends CrudRepository<PersonalDocuments, Integer> {
-    List<PersonalDocuments> findByStaffId(int id);
+    List<PersonalDocuments> findAllByStaff_StaffId(int id);
 }

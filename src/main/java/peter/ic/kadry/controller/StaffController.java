@@ -44,27 +44,27 @@ public class StaffController {
         this.usersRepository = usersRepository;
     }
 
+//    @GetMapping("")
+//    public String card(Model model) {
+//        User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Users user = usersRepository.findByUsername(userAuth.getUsername());
+//        model.addAttribute("user", user);
+//
+//        dictionaries(model);
+//
+//
+//        return "profile/personal";
+//    }
+
     @GetMapping("")
-    public String card(Model model) {
-        User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Users user = usersRepository.findByUsername(userAuth.getUsername());
-        model.addAttribute("user", user);
-
-        dictionaries(model);
-
-
-        return "profile/personal";
-    }
-
-    @GetMapping("/get")
-    public String getCard(@RequestParam(defaultValue = "0") int id, Model model) {
+    public String getCard(@RequestParam(defaultValue = "0") int staffId, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
         dictionaries(model);
 
         try {
-            Staff staff = staffRepository.findById(id);
+            Staff staff = staffRepository.findByStaffId(staffId);
 //            if (user.getDepartment().getCode() == staff.getDepartment().getCode()
 //                    || inheritanceOfDepartmentsRepository.findInheritance(user.getDepartment().getCode()).contains(staff.getDepartment().getCode())) {
             model.addAttribute("staffProfile", staff);

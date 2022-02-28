@@ -13,32 +13,16 @@
     </div>
     <div class="row m-auto col-10">
         <div class="card m-auto d-flex flex-column m-3 p-3">
-            <ul class="nav nav-pills">
-                <li class="nav-item">
-                    <a id="personalLink" class="nav-link" aria-current="page"
-                       href="${pageContext.request.contextPath}/profile/personal?id=${staffProfile.id}">Информация</a>
-                </li>
-                <li class="nav-item">
-                    <a id="documentsLink" class="nav-link active"
-                       href="${pageContext.request.contextPath}/profile/documents?id=${staffProfile.id}">Документы</a>
-                </li>
-                <li class="nav-item">
-                    <a id="educationLink" class="nav-link"
-                       href="${pageContext.request.contextPath}/profile/education?id=${staffProfile.id}">Образование</a>
-                </li>
-                <li class="nav-item">
-                    <a id="militaryLink" class="nav-link"
-                       href="${pageContext.request.contextPath}/profile/military?id=${staffProfile.id}">Служба
-                        в армии</a>
-                </li>
-            </ul>
+            <jsp:include page="../../template/_profileMenu.jsp"/>
+            <div class="d-grid justify-content-md-end">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+                    Добавить документ
+                </button>
+            </div>
+
             <div class="card">
                 <div class="row m-3">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-                        Добавить документ
-                    </button>
-
                     <!-- Modal -->
                     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel"
                          aria-hidden="true">
@@ -57,13 +41,13 @@
                                     <div class="modal-body">
                                         <div class="row m-3">
                                             <div class="col-md-2 mb-3" hidden>
-                                                <label for="id">#</label>
+                                                <label for="staffId">#</label>
                                                 <div class="input-group">
                                                     <input class="form-control"
                                                            readonly
                                                            min="0"
-                                                           id="id" type="number" name="id"
-                                                           value="${staffProfile.id}">
+                                                           id="staffId" type="number" name="staffId"
+                                                           value="${staffProfile.staffId}">
                                                 </div>
                                             </div>
                                             <div class="col-md-3 mb-3">
@@ -106,19 +90,17 @@
                                         </div>
                                         <div class="row m-3">
                                             <div class="col-md-11 mb-3">
-                                                <label for="temporaryPasswd">Кем выдан</label>
+                                                <label for="depCode">Кем выдан</label>
                                                 <input class="form-control custom-select d-block w-100"
-                                                       id="temporaryPasswd"
-                                                       name="temporaryPasswd" value="${documentCard.depCode}">
+                                                       id="depCode"
+                                                       name="depCode" value="${documentCard.depCode}">
                                             </div>
                                             <div class="col-md-1 mb-3">
-                                                <div class="btn-group-lg">
-                                                    <label class="form-check-label" for="active">Действует</label>
-                                                    <input type="checkbox"
-                                                           class="form-check-input btn-lg btn-outline-primary"
-                                                           id="active"
-                                                           name="active">
-                                                </div>
+                                                <label class="form-check-label" for="active">Действует</label>
+                                                <input type="checkbox"
+                                                       class="form-check-input btn-lg btn-outline-primary"
+                                                       id="active"
+                                                       name="active" value="${documentCard.active}">
                                             </div>
                                         </div>
                                     </div>
@@ -127,12 +109,121 @@
                                                data-bs-dismiss="modal"
                                                value="Закрыть"/>
                                         <input class="btn btn-primary" type="submit" value="Сохранить"
-                                               formaction="${pageContext.request.contextPath}/staff/documents/add"/>
+                                               formaction="${pageContext.request.contextPath}/profile/documents/add"/>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div>
+                    <table class="table table-hover">
+                        <core:forEach items="${documentsList}" var="document">
+                            <tr data-bs-toggle="modal" data-bs-target="#Modal${document.id}">
+                                <td>${document.documentType.name}</td>
+                                <td>Серия ${document.docSerialCode} № ${document.docNumber}</td>
+                                <td>Выдан: ${document.issueDate},
+                                        ${document.depCode}</td>
+                                <td>Действителен до: ${document.expirationDate}</td>
+                            </tr>
+                            <div class="modal fade" id="Modal${document.id}" tabindex="-1"
+                                 aria-labelledby="ModalLabel${document.id}"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="ModalLabel${document.id}">Документ</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <form class="needs-validation"
+                                              action="${pageContext.request.contextPath}/profile/documents"
+                                              method="post"
+                                              name="form">
+                                            <div class="modal-body">
+                                                <div class="row m-3">
+                                                    <div class="col-md-2 mb-3" hidden>
+                                                        <label for="staffId${document.id}"></label>
+                                                        <input class="form-control"
+                                                               id="staffId${document.id}" type="number" name="staffId"
+                                                               value="${staffProfile.staffId}">
+                                                    </div>
+                                                    <div class="col-md-2 mb-3" hidden>
+                                                        <label for="id${document.id}"></label>
+                                                        <input class="form-control"
+                                                               id="id${document.id}" type="number" name="id"
+                                                               value="${document.id}">
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="documentType${document.id}">Вид документа</label>
+                                                        <select class="form-control custom-select d-block w-100"
+                                                                id="documentType${document.id}"
+                                                                name="documentType">
+                                                            <option value="${document.documentType.id}">${document.documentType.name}</option>
+                                                            <core:forEach items="${documentType}" var="docType">
+                                                                <option value="${docType.id}">${docType.name}</option>
+                                                            </core:forEach>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-2 mb-3">
+                                                        <label for="docSerialCode${document.id}">Серия</label>
+                                                        <input class="form-control"
+                                                               id="docSerialCode${document.id}" type="text"
+                                                               name="docSerialCode"
+                                                               value="${document.docSerialCode}">
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="docNumber${document.id}">Номер</label>
+                                                        <input class="form-control"
+                                                               id="docNumber${document.id}" type="text" name="docNumber"
+                                                               value="${document.docNumber}">
+                                                    </div>
+
+                                                    <div class="col-md-2 mb-3">
+                                                        <label for="issueDate${document.id}">Дата выдачи</label>
+                                                        <input class="form-control"
+                                                               id="issueDate${document.id}" type="date" name="issueDate"
+                                                               value="${document.issueDate}">
+                                                    </div>
+                                                    <div class="col-md-2 mb-3">
+                                                        <label for="expirationDate${document.id}">Действителен
+                                                            до</label>
+                                                        <input class="form-control"
+                                                               id="expirationDate${document.id}" type="date"
+                                                               name="expirationDate"
+                                                               value="${document.expirationDate}">
+                                                    </div>
+                                                </div>
+                                                <div class="row m-3">
+                                                    <div class="col-md-11 mb-3">
+                                                        <label for="depCode${document.id}">Кем выдан</label>
+                                                        <input class="form-control custom-select d-block w-100"
+                                                               id="depCode${document.id}"
+                                                               name="depCode" value="${document.depCode}">
+                                                    </div>
+                                                        <%--                                                    <div class="col-md-1 mb-3">--%>
+                                                        <%--                                                        <label class="form-check-label" for="active${document.id}">Действует</label>--%>
+                                                        <%--                                                        <input type="checkbox"--%>
+                                                        <%--                                                               class="form-check-input btn-lg btn-outline-primary"--%>
+                                                        <%--                                                               id="active${document.id}"--%>
+                                                        <%--                                                               name="active" value="${document.active}">--%>
+                                                        <%--                                                    </div>--%>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input class="btn btn-secondary" type="button"
+                                                       data-bs-dismiss="modal"
+                                                       value="Закрыть"/>
+                                                <input class="btn btn-primary" type="submit" value="Сохранить"
+                                                       formaction="${pageContext.request.contextPath}/profile/documents/add"/>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </core:forEach>
+                    </table>
                 </div>
             </div>
         </div>

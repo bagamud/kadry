@@ -36,32 +36,41 @@ public class DocumentsController {
 
 
     @GetMapping("")
-    public String cardList(@RequestParam(defaultValue = "0") int id, Model model) {
+    public String cardList(@RequestParam(defaultValue = "0") int staffId, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
         model.addAttribute("documentType", docTypeRepository.findAll());
 
         try {
-            Staff staff = staffRepository.findById(id);
+            Staff staff = staffRepository.findByStaffId(staffId);
             model.addAttribute("staffProfile", staff);
-            if (id != 0) {
-                model.addAttribute("documentsList", personalDocumentsRepository.findByStaffId(id));
+            if (staffId != 0) {
+                model.addAttribute("documentsList", personalDocumentsRepository.findAllByStaff_StaffId(staffId));
             }
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
         }
-
         return "profile/documents";
     }
 
     @PostMapping("add")
-    public String addCard(PersonalDocuments personalDocuments, Model model) {
+    public String addCard(int staffId, PersonalDocuments personalDocuments, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
         model.addAttribute("documentType", docTypeRepository.findAll());
+        try {
+            Staff staff = staffRepository.findByStaffId(staffId);
+            personalDocuments.setStaff(staff);
 
+            model.addAttribute("staffProfile", staff);
+            if (staffId != 0) {
+                model.addAttribute("documentsList", personalDocumentsRepository.findAllByStaff_StaffId(staffId));
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+        }
         model.addAttribute("documentCard", personalDocumentsRepository.save(personalDocuments));
 
         return "profile/documents";

@@ -34,25 +34,17 @@ public class MilitaryInfController {
         this.usersRepository = usersRepository;
     }
 
+
     @GetMapping("")
-    public String card(Model model) {
-        User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Users user = usersRepository.findByUsername(userAuth.getUsername());
-        model.addAttribute("user", user);
-
-        return "profile/military";
-    }
-
-    @GetMapping("/get")
-    public String getCard(@RequestParam(defaultValue = "0") int id, Model model) {
+    public String getCard(@RequestParam(defaultValue = "0") int staffId, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
         try {
-            Staff staff = staffRepository.findById(id);
+            Staff staff = staffRepository.findByStaffId(staffId);
             if (user.getDepartment().getCode() == staff.getDepartment().getCode()) {
                 model.addAttribute("staffProfile", staff);
-                model.addAttribute("militariServiceCard", militaryServiceRepository.findByStaffId(id));
+                model.addAttribute("militaryServiceCard", militaryServiceRepository.findByStaffStaffId(staffId));
 
             }
         } catch (Exception e) {
@@ -63,11 +55,21 @@ public class MilitaryInfController {
     }
 
     @PostMapping("/add")
-    public String addCard(MilitaryService militaryService, Model model) {
+    public String addCard(int staffId, MilitaryService militaryService, Model model) {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
-
         model.addAttribute("user", user);
+        try {
+            Staff staff = staffRepository.findByStaffId(staffId);
+            if (user.getDepartment().getCode() == staff.getDepartment().getCode()) {
+                model.addAttribute("staffProfile", staff);
+                model.addAttribute("militariServiceCard", militaryServiceRepository.findByStaffStaffId(staffId));
+
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+        }
+
         model.addAttribute("militariServiceCard", militaryServiceRepository.save(militaryService));
         return "profile/military";
     }

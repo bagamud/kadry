@@ -10,7 +10,7 @@ import java.sql.Date;
 public class Staff {
 
     @Id
-    private int id;
+    private int staffId;
 
     @Column(unique = true, columnDefinition = "VARCHAR(11)")
     private String SNILS;
@@ -85,12 +85,12 @@ public class Staff {
     //    @Column(columnDefinition = "VARCHAR")
     private String dismissalOrder;
 
-    public int getId() {
-        return id;
+    public int getStaffId() {
+        return staffId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setStaffId(int staffId) {
+        this.staffId = staffId;
     }
 
     public String getSNILS() {

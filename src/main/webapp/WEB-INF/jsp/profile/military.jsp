@@ -13,38 +13,18 @@
     </div>
     <div class="row m-auto col-10">
         <div class="card m-auto d-flex flex-column m-3 p-3">
-            <ul class="nav nav-pills">
-                <li class="nav-item">
-                    <a id="personalLink" class="nav-link" aria-current="page"
-                       href="${pageContext.request.contextPath}/profile/personal?id=${staffProfile.id}">Информация</a>
-                </li>
-                <li class="nav-item">
-                    <a id="documentsLink" class="nav-link"
-                       href="${pageContext.request.contextPath}/profile/documents?id=${staffProfile.id}">Документы</a>
-                </li>
-                <li class="nav-item">
-                    <a id="educationLink" class="nav-link"
-                       href="${pageContext.request.contextPath}/profile/education?id=${staffProfile.id}">Образование</a>
-                </li>
-                <li class="nav-item">
-                    <a id="militaryLink" class="nav-link active"
-                       href="${pageContext.request.contextPath}/profile/military?id=${staffProfile.id}">Служба
-                        в армии</a>
-                </li>
-            </ul>
+            <jsp:include page="../../template/_profileMenu.jsp"/>
             <div class="card">
                 <form class="needs-validation" action="${pageContext.request.contextPath}/profile/military" method="post"
                       name="form"
                       id="formId">
                     <div class="row m-3">
                         <div class="col-md-2 mb-3" hidden>
-                            <label for="id">#</label>
+                            <label for="staffId">#</label>
                             <div class="input-group">
                                 <input class="form-control"
-                                       readonly
-                                       min="0"
-                                       id="id" type="number" name="id"
-                                       value="${staffProfile.id}">
+                                       readonly min="0" id="staffId" type="number" name="staffId"
+                                       value="${staffProfile.staffId}">
                             </div>
                         </div>
 
