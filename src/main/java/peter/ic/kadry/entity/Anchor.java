@@ -7,24 +7,23 @@ import javax.persistence.Id;
 public class Anchor {
 
     @Id
-    private int id;
+    private int anchorId;
 
-    //    @Column(columnDefinition = "VARCHAR")
-    private String name;
+    private String anchorName;
 
-    public int getId() {
-        return id;
+    public int getAnchorId() {
+        return anchorId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAnchorId(int anchorId) {
+        this.anchorId = anchorId;
     }
 
-    public String getName() {
-        return name;
+    public String getAnchorName() {
+        return anchorName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAnchorName(String anchorName) {
+        this.anchorName = anchorName;
     }
 }

@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 public class EducationInformation {
 
     @Id
-    private int id;
+    private int educationInformationId;
 
     @ManyToOne
     private Staff staff;
@@ -25,12 +25,12 @@ public class EducationInformation {
     //    @Column(columnDefinition = "VARCHAR")
     private String diploma;
 
-    public int getId() {
-        return id;
+    public int getEducationInformationId() {
+        return educationInformationId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setEducationInformationId(int educationInformationId) {
+        this.educationInformationId = educationInformationId;
     }
 
     public Staff getStaff() {

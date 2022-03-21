@@ -63,6 +63,7 @@ public class DocumentsController {
         try {
             Staff staff = staffRepository.findByStaffId(staffId);
             personalDocuments.setStaff(staff);
+            model.addAttribute("documentCard", personalDocumentsRepository.save(personalDocuments));
 
             model.addAttribute("staffProfile", staff);
             if (staffId != 0) {
@@ -71,7 +72,6 @@ public class DocumentsController {
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
         }
-        model.addAttribute("documentCard", personalDocumentsRepository.save(personalDocuments));
 
         return "profile/documents";
     }

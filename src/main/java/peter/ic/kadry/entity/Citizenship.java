@@ -7,24 +7,23 @@ import javax.persistence.Id;
 public class Citizenship {
 
     @Id
-    private int id;
+    private int citizenshipId;
 
-    //    @Column(columnDefinition = "VARCHAR")
-    private String title;
+    private String citizenshipTitle;
 
-    public int getId() {
-        return id;
+    public int getCitizenshipId() {
+        return citizenshipId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCitizenshipId(int citizenshipId) {
+        this.citizenshipId = citizenshipId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getCitizenshipTitle() {
+        return citizenshipTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCitizenshipTitle(String citizenshipTitle) {
+        this.citizenshipTitle = citizenshipTitle;
     }
 }

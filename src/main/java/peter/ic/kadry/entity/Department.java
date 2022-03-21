@@ -9,18 +9,13 @@ import javax.persistence.ManyToOne;
 public class Department {
 
     @Id
-    int code;
-    int parentCode;
+    private int code;
+    private int parentCode;
+    private String name;
+    private String fullName;
+    private String shortName;
+    private int regionCode;
 
-    //    @Column(columnDefinition = "VARCHAR")
-    String name;
-
-    //    @Column(columnDefinition = "VARCHAR")
-    String fullName;
-
-    //    @Column(columnDefinition = "VARCHAR")
-    String shortName;
-    int regionCode;
     @ManyToOne
     private Anchor anchor;
     @Column(nullable = true)

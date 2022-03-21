@@ -96,9 +96,9 @@
                                                        name="depCode" value="${documentCard.depCode}">
                                             </div>
                                             <div class="col-md-1 mb-3">
-                                                <label class="form-check-label" for="active">Действует</label>
-                                                <input type="checkbox"
-                                                       class="form-check-input btn-lg btn-outline-primary"
+                                                <label class="" for="active">Действует</label>
+                                                <input type="text"
+                                                       class="form-control"
                                                        id="active"
                                                        name="active" value="${documentCard.active}">
                                             </div>
@@ -202,13 +202,13 @@
                                                                id="depCode${document.id}"
                                                                name="depCode" value="${document.depCode}">
                                                     </div>
-                                                        <%--                                                    <div class="col-md-1 mb-3">--%>
-                                                        <%--                                                        <label class="form-check-label" for="active${document.id}">Действует</label>--%>
-                                                        <%--                                                        <input type="checkbox"--%>
-                                                        <%--                                                               class="form-check-input btn-lg btn-outline-primary"--%>
-                                                        <%--                                                               id="active${document.id}"--%>
-                                                        <%--                                                               name="active" value="${document.active}">--%>
-                                                        <%--                                                    </div>--%>
+                                                    <div class="col-md-1 mb-3">
+                                                        <label class="form-label" for="active${document.id}">Действует</label>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               id="active${document.id}"
+                                                               name="active" value="${document.active}">
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

@@ -9,7 +9,7 @@ import java.sql.Date;
 public class MilitaryService {
 
     @Id
-    private int id;
+    private int militaryServiceId;
 
     @ManyToOne
     private Staff staff;
@@ -25,12 +25,12 @@ public class MilitaryService {
     //    @Column(columnDefinition = "VARCHAR")
     private String armyRank;
 
-    public int getId() {
-        return id;
+    public int getMilitaryServiceId() {
+        return militaryServiceId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setMilitaryServiceId(int militaryServiceId) {
+        this.militaryServiceId = militaryServiceId;
     }
 
     public Staff getStaff() {

@@ -7,24 +7,23 @@ import javax.persistence.Id;
 public class DocumentType {
 
     @Id
-    private int id;
+    private int documentTypeId;
 
-    //    @Column(columnDefinition = "VARCHAR")
-    private String name;
+    private String documentTypeName;
 
-    public int getId() {
-        return id;
+    public int getDocumentTypeId() {
+        return documentTypeId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDocumentTypeId(int documentTypeId) {
+        this.documentTypeId = documentTypeId;
     }
 
-    public String getName() {
-        return name;
+    public String getDocumentTypeName() {
+        return documentTypeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDocumentTypeName(String documentTypeName) {
+        this.documentTypeName = documentTypeName;
     }
 }
