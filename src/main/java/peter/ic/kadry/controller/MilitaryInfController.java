@@ -9,9 +9,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import peter.ic.kadry.entity.MilitaryService;
+import peter.ic.kadry.entity.PublicService;
 import peter.ic.kadry.entity.Staff;
 import peter.ic.kadry.entity.Users;
 import peter.ic.kadry.repository.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/profile/military")
@@ -20,17 +24,19 @@ public class MilitaryInfController {
     final DocTypeRepository docTypeRepository;
     final MilitaryServiceRepository militaryServiceRepository;
     final PersonalDocumentsRepository personalDocumentsRepository;
+    final PublicServiceRepository publicServiceRepository;
     final UsersRepository usersRepository;
 
     public MilitaryInfController(StaffRepository staffRepository,
                                  DocTypeRepository docTypeRepository,
                                  MilitaryServiceRepository militaryServiceRepository,
                                  PersonalDocumentsRepository personalDocumentsRepository,
-                                 UsersRepository usersRepository) {
+                                 PublicServiceRepository publicServiceRepository, UsersRepository usersRepository) {
         this.staffRepository = staffRepository;
         this.docTypeRepository = docTypeRepository;
         this.militaryServiceRepository = militaryServiceRepository;
         this.personalDocumentsRepository = personalDocumentsRepository;
+        this.publicServiceRepository = publicServiceRepository;
         this.usersRepository = usersRepository;
     }
 
@@ -42,7 +48,7 @@ public class MilitaryInfController {
         model.addAttribute("user", user);
         try {
             Staff staff = staffRepository.findByStaffId(staffId);
-            if (user.getDepartment().getCode() == staff.getDepartment().getCode()) {
+            if (publicServiceRepository.findAllByStaffAndDepartmentAndServiceStatusTrue(staff, user.getDepartment()).size() > 0) {
                 model.addAttribute("staffProfile", staff);
                 model.addAttribute("militaryServiceCard", militaryServiceRepository.findByStaffStaffId(staffId));
 
@@ -61,7 +67,7 @@ public class MilitaryInfController {
         model.addAttribute("user", user);
         try {
             Staff staff = staffRepository.findByStaffId(staffId);
-            if (user.getDepartment().getCode() == staff.getDepartment().getCode()) {
+            if (publicServiceRepository.findAllByStaffAndDepartmentAndServiceStatusTrue(staff, user.getDepartment()).size() > 0) {
                 model.addAttribute("staffProfile", staff);
                 model.addAttribute("militariServiceCard", militaryServiceRepository.findByStaffStaffId(staffId));
 
