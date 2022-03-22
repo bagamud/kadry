@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import peter.ic.kadry.entity.Department;
+import peter.ic.kadry.entity.PublicService;
+import peter.ic.kadry.entity.Staff;
 import peter.ic.kadry.entity.Users;
-import peter.ic.kadry.repository.DepartmentRepository;
-import peter.ic.kadry.repository.InheritanceOfDepartmentsRepository;
-import peter.ic.kadry.repository.StaffRepository;
-import peter.ic.kadry.repository.UsersRepository;
+import peter.ic.kadry.repository.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,14 +22,16 @@ import java.util.Map;
 @RequestMapping("/dashboard")
 public class DashboardController {
     final StaffRepository staffRepository;
+    final PublicServiceRepository publicServiceRepository;
     final DepartmentRepository departmentRepository;
     final InheritanceOfDepartmentsRepository inheritanceOfDepartmentsRepository;
     final UsersRepository usersRepository;
 
     public DashboardController(StaffRepository staffRepository,
-                               DepartmentRepository departmentRepository,
+                               PublicServiceRepository publicServiceRepository, DepartmentRepository departmentRepository,
                                InheritanceOfDepartmentsRepository inheritanceOfDepartmentsRepository, UsersRepository usersRepository) {
         this.staffRepository = staffRepository;
+        this.publicServiceRepository = publicServiceRepository;
         this.departmentRepository = departmentRepository;
         this.inheritanceOfDepartmentsRepository = inheritanceOfDepartmentsRepository;
         this.usersRepository = usersRepository;
@@ -56,7 +57,11 @@ public class DashboardController {
 
         model.addAttribute("depMenu", depMenu);
         if (department != 0) {
-            model.addAttribute("staff", staffRepository.findAllByDepartment_code(department));
+            ArrayList<Staff> staffList = new ArrayList<>();
+            for (PublicService publicService : publicServiceRepository.findAllByDepartment_CodeAndServiceStatusTrue(department)) {
+                staffList.add(publicService.getStaff());
+            }
+            model.addAttribute("staff", staffList);
         }
 
 //        if (department == user.getDepartment().getCode() || !inheritanceOfDepartmentsRepository.findInheritance(user.getDepartment().getCode()).contains(department)) {

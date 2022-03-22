@@ -7,23 +7,23 @@ import javax.persistence.Id;
 public class Anchor {
 
     @Id
-    private int anchorId;
+    private int id;
 
-    private String anchorName;
+    private String name;
 
-    public int getAnchorId() {
-        return anchorId;
+    public int getId() {
+        return id;
     }
 
-    public void setAnchorId(int anchorId) {
-        this.anchorId = anchorId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getAnchorName() {
-        return anchorName;
+    public String getName() {
+        return name;
     }
 
-    public void setAnchorName(String anchorName) {
-        this.anchorName = anchorName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

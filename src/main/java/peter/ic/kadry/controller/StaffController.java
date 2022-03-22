@@ -20,7 +20,6 @@ public class StaffController {
     final CitizenshipRepository citizenshipRepository;
     final GenderRepository genderRepository;
     final PositionRepository positionRepository;
-    final StatusRepository statusRepository;
     final RankRepository rankRepository;
     final DepartmentRepository departmentRepository;
     final InheritanceOfDepartmentsRepository inheritanceOfDepartmentsRepository;
@@ -29,7 +28,7 @@ public class StaffController {
     public StaffController(StaffRepository staffRepository,
                            CitizenshipRepository citizenshipRepository,
                            GenderRepository genderRepository, PositionRepository positionRepository,
-                           StatusRepository statusRepository, RankRepository rankRepository,
+                           RankRepository rankRepository,
                            DepartmentRepository departmentRepository,
                            InheritanceOfDepartmentsRepository inheritanceOfDepartmentsRepository,
                            UsersRepository usersRepository) {
@@ -37,7 +36,6 @@ public class StaffController {
         this.citizenshipRepository = citizenshipRepository;
         this.genderRepository = genderRepository;
         this.positionRepository = positionRepository;
-        this.statusRepository = statusRepository;
         this.rankRepository = rankRepository;
         this.departmentRepository = departmentRepository;
         this.inheritanceOfDepartmentsRepository = inheritanceOfDepartmentsRepository;
@@ -106,6 +104,5 @@ public class StaffController {
         model.addAttribute("rank", rankRepository.findAll());
         model.addAttribute("department", departmentRepository.findAllByActiveIsTrueOrderByCode());
         model.addAttribute("departmentRoot", departmentRepository.findAllByActiveIsTrueAndAnchor_NameOrderByCode("root"));
-        model.addAttribute("status", statusRepository.findAll());
     }
 }
