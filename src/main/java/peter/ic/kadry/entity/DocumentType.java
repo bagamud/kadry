@@ -7,23 +7,22 @@ import javax.persistence.Id;
 public class DocumentType {
 
     @Id
-    private int documentTypeId;
+    private int id;
+    private String name;
 
-    private String documentTypeName;
-
-    public int getDocumentTypeId() {
-        return documentTypeId;
+    public int getId() {
+        return id;
     }
 
-    public void setDocumentTypeId(int documentTypeId) {
-        this.documentTypeId = documentTypeId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getDocumentTypeName() {
-        return documentTypeName;
+    public String getName() {
+        return name;
     }
 
-    public void setDocumentTypeName(String documentTypeName) {
-        this.documentTypeName = documentTypeName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

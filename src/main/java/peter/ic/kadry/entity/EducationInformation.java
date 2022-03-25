@@ -3,12 +3,13 @@ package peter.ic.kadry.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.util.Date;
 
 @Entity
 public class EducationInformation {
 
     @Id
-    private int educationInformationId;
+    private int id;
 
     @ManyToOne
     private Staff staff;
@@ -16,21 +17,18 @@ public class EducationInformation {
     @ManyToOne
     private EducationType educationType;
 
-    //    @Column(columnDefinition = "VARCHAR")
     private String educationalInstitution;
-
-    //    @Column(columnDefinition = "VARCHAR")
     private String specialization;
-
-    //    @Column(columnDefinition = "VARCHAR")
     private String diploma;
+    private Date educationStart;
+    private Date educationEnd;
 
-    public int getEducationInformationId() {
-        return educationInformationId;
+    public int getId() {
+        return id;
     }
 
-    public void setEducationInformationId(int educationInformationId) {
-        this.educationInformationId = educationInformationId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Staff getStaff() {
@@ -71,5 +69,21 @@ public class EducationInformation {
 
     public void setDiploma(String diploma) {
         this.diploma = diploma;
+    }
+
+    public Date getEducationStart() {
+        return educationStart;
+    }
+
+    public void setEducationStart(Date educationStart) {
+        this.educationStart = educationStart;
+    }
+
+    public Date getEducationEnd() {
+        return educationEnd;
+    }
+
+    public void setEducationEnd(Date educationEnd) {
+        this.educationEnd = educationEnd;
     }
 }

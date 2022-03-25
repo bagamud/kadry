@@ -14,20 +14,17 @@ public class PublicService {
     @ManyToOne
     private Staff staff;
 
-    @ManyToOne(targetEntity = Department.class)
-    private Department department;
+    @ManyToOne
+    private StaffUnit staffUnit;
 
-    @ManyToOne(targetEntity = Position.class)
-    private Position position;
-
-    private String positionAppointmentOrder;
+    private String appointmentOrder;
+    private Date appointmentOrderDate;
 
     private Date dismissalDate;
 
     private String dismissalOrder;
 
     private boolean serviceStatus;
-
 
     public int getPublicServiceId() {
         return publicServiceId;
@@ -45,28 +42,28 @@ public class PublicService {
         this.staff = staff;
     }
 
-    public Department getDepartment() {
-        return department;
+    public StaffUnit getStaffUnit() {
+        return staffUnit;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setStaffUnit(StaffUnit staffUnit) {
+        this.staffUnit = staffUnit;
     }
 
-    public Position getPosition() {
-        return position;
+    public String getAppointmentOrder() {
+        return appointmentOrder;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setAppointmentOrder(String appointmentOrder) {
+        this.appointmentOrder = appointmentOrder;
     }
 
-    public String getPositionAppointmentOrder() {
-        return positionAppointmentOrder;
+    public Date getAppointmentOrderDate() {
+        return appointmentOrderDate;
     }
 
-    public void setPositionAppointmentOrder(String positionAppointmentOrder) {
-        this.positionAppointmentOrder = positionAppointmentOrder;
+    public void setAppointmentOrderDate(Date appointmentOrderDate) {
+        this.appointmentOrderDate = appointmentOrderDate;
     }
 
     public Date getDismissalDate() {

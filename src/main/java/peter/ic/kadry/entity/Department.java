@@ -18,6 +18,8 @@ public class Department {
 
     @ManyToOne
     private Anchor anchor;
+
+
     @Column(nullable = true)
     private boolean active;
 
@@ -76,6 +78,7 @@ public class Department {
     public void setAnchor(Anchor anchor) {
         this.anchor = anchor;
     }
+
 
     public boolean isActive() {
         return active;

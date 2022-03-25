@@ -56,13 +56,13 @@ public class DashboardController {
         }
 
         model.addAttribute("depMenu", depMenu);
-        if (department != 0) {
-            ArrayList<Staff> staffList = new ArrayList<>();
-            for (PublicService publicService : publicServiceRepository.findAllByDepartment_CodeAndServiceStatusTrue(department)) {
-                staffList.add(publicService.getStaff());
-            }
-            model.addAttribute("staff", staffList);
-        }
+//        if (department != 0) {
+//            ArrayList<Staff> staffList = new ArrayList<>();
+//            for (PublicService publicService : publicServiceRepository.findAllByDepartment_CodeAndServiceStatusTrue(department)) {
+//                staffList.add(publicService.getStaff());
+//            }
+//            model.addAttribute("staff", staffList);
+//        }
 
 //        if (department == user.getDepartment().getCode() || !inheritanceOfDepartmentsRepository.findInheritance(user.getDepartment().getCode()).contains(department)) {
 //            model.addAttribute("hidden", "hidden");

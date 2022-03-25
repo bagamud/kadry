@@ -32,17 +32,18 @@ public class Users {
     @ManyToOne(targetEntity = Department.class)
     private Department department;
 
+    @ManyToOne(targetEntity = Department.class)
+    private Department adminDepartment;
+
     @ManyToOne(targetEntity = Position.class)
     private Position position;
-
-    @ManyToOne(targetEntity = Rank.class)
-    private Rank rank;
 
     //    @Column(columnDefinition = "VARCHAR")
     private String contacts;
 
     //    @Column(columnDefinition = "VARCHAR")
     private String email;
+
     private boolean active;
 
     private Role role;
@@ -144,12 +145,12 @@ public class Users {
         this.position = position;
     }
 
-    public Rank getRank() {
-        return rank;
+    public Department getAdminDepartment() {
+        return adminDepartment;
     }
 
-    public void setRank(Rank rank) {
-        this.rank = rank;
+    public void setAdminDepartment(Department adminDepartment) {
+        this.adminDepartment = adminDepartment;
     }
 
     public boolean isActive() {

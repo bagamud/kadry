@@ -10,6 +10,6 @@ import java.util.List;
 public interface PublicServiceRepository extends CrudRepository<PublicService, Integer> {
 
     List<PublicService> findAllByStaff(Staff staff);
-    List<PublicService> findAllByDepartment_CodeAndServiceStatusTrue(int department_code);
-    List<PublicService> findAllByStaffAndDepartmentAndServiceStatusTrue(Staff staff, Department department);
+//    List<PublicService> findAllByDepartment_CodeAndServiceStatusTrue(int department_code);
+//    List<PublicService> findAllByStaffAndDepartmentAndServiceStatusTrue(Staff staff, Department department);
 }

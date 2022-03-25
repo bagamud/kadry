@@ -8,10 +8,10 @@ import javax.persistence.ManyToOne;
 public class Position {
 
     @Id
-    int code;
+    private int code;
 
     //    @Column(columnDefinition = "VARCHAR")
-    String title;
+    private String title;
 
     private int parentCode;
 

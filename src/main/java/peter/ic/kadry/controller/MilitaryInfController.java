@@ -46,16 +46,16 @@ public class MilitaryInfController {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
-        try {
-            Staff staff = staffRepository.findByStaffId(staffId);
-            if (publicServiceRepository.findAllByStaffAndDepartmentAndServiceStatusTrue(staff, user.getDepartment()).size() > 0) {
-                model.addAttribute("staffProfile", staff);
-                model.addAttribute("militaryServiceCard", militaryServiceRepository.findByStaffStaffId(staffId));
-
-            }
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-        }
+//        try {
+//            Staff staff = staffRepository.findByStaffId(staffId);
+//            if (publicServiceRepository.findAllByStaffAndDepartmentAndServiceStatusTrue(staff, user.getDepartment()).size() > 0) {
+//                model.addAttribute("staffProfile", staff);
+//                model.addAttribute("militaryServiceCard", militaryServiceRepository.findByStaffStaffId(staffId));
+//
+//            }
+//        } catch (Exception e) {
+//            model.addAttribute("error", e.getMessage());
+//        }
 
         return "profile/military";
     }
@@ -65,16 +65,16 @@ public class MilitaryInfController {
         User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = usersRepository.findByUsername(userAuth.getUsername());
         model.addAttribute("user", user);
-        try {
-            Staff staff = staffRepository.findByStaffId(staffId);
-            if (publicServiceRepository.findAllByStaffAndDepartmentAndServiceStatusTrue(staff, user.getDepartment()).size() > 0) {
-                model.addAttribute("staffProfile", staff);
-                model.addAttribute("militariServiceCard", militaryServiceRepository.findByStaffStaffId(staffId));
-
-            }
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-        }
+//        try {
+//            Staff staff = staffRepository.findByStaffId(staffId);
+//            if (publicServiceRepository.findAllByStaffAndDepartmentAndServiceStatusTrue(staff, user.getDepartment()).size() > 0) {
+//                model.addAttribute("staffProfile", staff);
+//                model.addAttribute("militariServiceCard", militaryServiceRepository.findByStaffStaffId(staffId));
+//
+//            }
+//        } catch (Exception e) {
+//            model.addAttribute("error", e.getMessage());
+//        }
 
         model.addAttribute("militariServiceCard", militaryServiceRepository.save(militaryService));
         return "profile/military";

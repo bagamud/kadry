@@ -4,10 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Citizenship {
+public class SecretForm {
 
     @Id
     private int id;
+
     private String title;
 
     public int getId() {
